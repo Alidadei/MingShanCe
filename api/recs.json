@@ -1,25 +1,38 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-12T16:00:12+08:00",
-  "forDate": "2026-09-12",
+  "generatedAt": "2026-09-13T16:25:02+08:00",
+  "forDate": "2026-09-13",
   "week": 37,
-  "weekendOf": "2026-09-12",
+  "weekendOf": "2026-09-19",
   "holiday": null,
   "weatherEnabled": true,
   "source": "github-actions",
   "seasonal": [
     {
-      "id": "maoershan",
-      "name": "猫儿山",
-      "emoji": "🐱",
-      "province": "广西 · 桂林",
-      "elevation": 2141,
+      "id": "wugongshan",
+      "name": "武功山",
+      "emoji": "⛺",
+      "province": "江西 · 萍乡",
+      "elevation": 1918,
       "difficulty": 3,
       "difficultyLabel": "进阶",
-      "scenery": 4.5,
-      "reason": "周末阴，云海正当时",
-      "score": 26.55,
-      "weather": "阴，降水概率 0%，山顶夜温约 -6°C"
+      "scenery": 4.7,
+      "reason": "周末毛毛雨，星空正当时",
+      "score": 29.69,
+      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
+    },
+    {
+      "id": "huangshan",
+      "name": "黄山",
+      "emoji": "🌊",
+      "province": "安徽 · 黄山市",
+      "elevation": 1864,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 5.0,
+      "reason": "周末阴，日出正当时",
+      "score": 27.4,
+      "weather": "阴，降水概率 15%，山顶夜温约 1°C"
     },
     {
       "id": "lingshan",
@@ -30,22 +43,9 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.2,
-      "reason": "周末毛毛雨，露营正当时",
-      "score": 25.5,
-      "weather": "毛毛雨，降水概率 20%，山顶夜温约 -6°C"
-    },
-    {
-      "id": "sanqingshan",
-      "name": "三清山",
-      "emoji": "🗿",
-      "province": "江西 · 上饶",
-      "elevation": 1819,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.8,
-      "reason": "周末阴，云海正当时",
-      "score": 24.84,
-      "weather": "阴，降水概率 0%，山顶夜温约 0°C"
+      "reason": "周末大致晴，露营正当时",
+      "score": 25.74,
+      "weather": "大致晴，降水概率 16%，山顶夜温约 -4°C"
     },
     {
       "id": "taishan",
@@ -57,24 +57,37 @@
       "difficultyLabel": "进阶",
       "scenery": 4.9,
       "reason": "周末阴，夜爬正当时",
-      "score": 24.59,
-      "weather": "阴，降水概率 8%，山顶夜温约 1°C"
+      "score": 24.82,
+      "weather": "阴，降水概率 8%，山顶夜温约 2°C"
     },
     {
-      "id": "laojunshan",
-      "name": "老君山",
-      "emoji": "⛩️",
-      "province": "河南 · 洛阳",
-      "elevation": 2217,
-      "difficulty": 2,
-      "difficultyLabel": "轻松",
-      "scenery": 4.7,
+      "id": "sanqingshan",
+      "name": "三清山",
+      "emoji": "🗿",
+      "province": "江西 · 上饶",
+      "elevation": 1819,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.8,
       "reason": "周末阴，云海正当时",
-      "score": 24.3,
-      "weather": "阴，降水概率 19%，山顶夜温约 -1°C"
+      "score": 24.6,
+      "weather": "阴，降水概率 6%，山顶夜温约 3°C"
     }
   ],
   "trending": [
+    {
+      "id": "wugongshan",
+      "name": "武功山",
+      "emoji": "⛺",
+      "province": "江西 · 萍乡",
+      "elevation": 1918,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.7,
+      "reason": "本周热度上升 51%，星空主题搜索量激增；周末毛毛雨，正适合出发",
+      "score": 18.36,
+      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
+    },
     {
       "id": "taishan",
       "name": "泰山",
@@ -86,7 +99,7 @@
       "scenery": 4.9,
       "reason": "本周热度上升 43%，夜爬主题搜索量激增；周末阴，正适合出发",
       "score": 18.06,
-      "weather": "阴，降水概率 8%，山顶夜温约 1°C"
+      "weather": "阴，降水概率 8%，山顶夜温约 2°C"
     },
     {
       "id": "laoshan",
@@ -99,7 +112,7 @@
       "scenery": 4.6,
       "reason": "本周热度上升 50%，道教名山主题搜索量激增；周末阴，正适合出发",
       "score": 17.95,
-      "weather": "阴，降水概率 14%，山顶夜温约 9°C"
+      "weather": "阴，降水概率 4%，山顶夜温约 9°C"
     },
     {
       "id": "wutaishan",
@@ -110,9 +123,9 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.6,
-      "reason": "本周热度上升 46%，佛教名山主题搜索量激增；周末毛毛雨，正适合出发",
+      "reason": "本周热度上升 46%，佛教名山主题搜索量激增；周末阴，正适合出发",
       "score": 17.85,
-      "weather": "毛毛雨，降水概率 2%，山顶夜温约 -17°C"
+      "weather": "阴，降水概率 24%，山顶夜温约 -15°C"
     },
     {
       "id": "yuntaishan",
@@ -123,22 +136,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.6,
-      "reason": "本周热度上升 47%，峡谷主题搜索量激增；周末阴，正适合出发",
+      "reason": "本周热度上升 47%，峡谷主题搜索量激增；周末毛毛雨，正适合出发",
       "score": 17.8,
-      "weather": "阴，降水概率 0%，山顶夜温约 5°C"
-    },
-    {
-      "id": "changbaishan",
-      "name": "长白山",
-      "emoji": "🌋",
-      "province": "吉林 · 延边",
-      "elevation": 2691,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.9,
-      "reason": "本周热度上升 37%，天池主题搜索量激增；周末多云，正适合出发",
-      "score": 17.79,
-      "weather": "多云，降水概率 12%，山顶夜温约 -12°C"
+      "weather": "毛毛雨，降水概率 14%，山顶夜温约 13°C"
     }
   ],
   "weekend": [
@@ -153,20 +153,33 @@
       "scenery": 4.8,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.6,
-      "weather": "阴，降水概率 0%，山顶夜温约 0°C"
+      "weather": "阴，降水概率 6%，山顶夜温约 3°C"
     },
     {
-      "id": "wudangshan",
-      "name": "武当山",
-      "emoji": "☯️",
-      "province": "湖北 · 十堰",
-      "elevation": 1612,
-      "difficulty": 2,
-      "difficultyLabel": "轻松",
+      "id": "wugongshan",
+      "name": "武功山",
+      "emoji": "⛺",
+      "province": "江西 · 萍乡",
+      "elevation": 1918,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
       "scenery": 4.7,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.4,
-      "weather": "阴，降水概率 2%，山顶夜温约 -1°C"
+      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
+    },
+    {
+      "id": "lushan",
+      "name": "庐山",
+      "emoji": "💧",
+      "province": "江西 · 九江",
+      "elevation": 1474,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.7,
+      "reason": "周末两天刚好走完（建议 2 天行程）",
+      "score": 23.4,
+      "weather": "大致晴，降水概率 2%，山顶夜温约 6°C"
     },
     {
       "id": "wutaishan",
@@ -179,20 +192,7 @@
       "scenery": 4.6,
       "reason": "周末两天刚好走完（建议 3 天行程）",
       "score": 23.2,
-      "weather": "毛毛雨，降水概率 2%，山顶夜温约 -17°C"
-    },
-    {
-      "id": "yandangshan",
-      "name": "雁荡山",
-      "emoji": "🗻",
-      "province": "浙江 · 温州",
-      "elevation": 1056,
-      "difficulty": 2,
-      "difficultyLabel": "轻松",
-      "scenery": 4.6,
-      "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.2,
-      "weather": "阴，降水概率 0%，山顶夜温约 9°C"
+      "weather": "阴，降水概率 24%，山顶夜温约 -15°C"
     }
   ],
   "editors": [
