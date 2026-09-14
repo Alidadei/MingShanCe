@@ -1,26 +1,13 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-13T16:25:02+08:00",
-  "forDate": "2026-09-13",
-  "week": 37,
+  "generatedAt": "2026-09-14T17:05:16+08:00",
+  "forDate": "2026-09-14",
+  "week": 38,
   "weekendOf": "2026-09-19",
   "holiday": null,
   "weatherEnabled": true,
   "source": "github-actions",
   "seasonal": [
-    {
-      "id": "wugongshan",
-      "name": "武功山",
-      "emoji": "⛺",
-      "province": "江西 · 萍乡",
-      "elevation": 1918,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.7,
-      "reason": "周末毛毛雨，星空正当时",
-      "score": 29.69,
-      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
-    },
     {
       "id": "huangshan",
       "name": "黄山",
@@ -30,9 +17,9 @@
       "difficulty": 4,
       "difficultyLabel": "困难",
       "scenery": 5.0,
-      "reason": "周末阴，日出正当时",
-      "score": 27.4,
-      "weather": "阴，降水概率 15%，山顶夜温约 1°C"
+      "reason": "周末毛毛雨，日出正当时",
+      "score": 27.11,
+      "weather": "毛毛雨，降水概率 19%，山顶夜温约 0°C"
     },
     {
       "id": "lingshan",
@@ -43,9 +30,9 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.2,
-      "reason": "周末大致晴，露营正当时",
-      "score": 25.74,
-      "weather": "大致晴，降水概率 16%，山顶夜温约 -4°C"
+      "reason": "周末毛毛雨，露营正当时",
+      "score": 25.97,
+      "weather": "毛毛雨，降水概率 24%，山顶夜温约 -5°C"
     },
     {
       "id": "taishan",
@@ -57,8 +44,21 @@
       "difficultyLabel": "进阶",
       "scenery": 4.9,
       "reason": "周末阴，夜爬正当时",
-      "score": 24.82,
-      "weather": "阴，降水概率 8%，山顶夜温约 2°C"
+      "score": 25.06,
+      "weather": "阴，降水概率 6%，山顶夜温约 1°C"
+    },
+    {
+      "id": "hengshan_s",
+      "name": "衡山",
+      "emoji": "🕯️",
+      "province": "湖南 · 衡阳",
+      "elevation": 1300,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.5,
+      "reason": "周末阴，日出正当时",
+      "score": 24.43,
+      "weather": "阴，降水概率 8%，山顶夜温约 9°C"
     },
     {
       "id": "sanqingshan",
@@ -69,37 +69,63 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.8,
-      "reason": "周末阴，云海正当时",
-      "score": 24.6,
-      "weather": "阴，降水概率 6%，山顶夜温约 3°C"
+      "reason": "周末毛毛雨，云海正当时",
+      "score": 24.37,
+      "weather": "毛毛雨，降水概率 24%，山顶夜温约 2°C"
     }
   ],
   "trending": [
     {
-      "id": "wugongshan",
-      "name": "武功山",
-      "emoji": "⛺",
-      "province": "江西 · 萍乡",
-      "elevation": 1918,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.7,
-      "reason": "本周热度上升 51%，星空主题搜索量激增；周末毛毛雨，正适合出发",
-      "score": 18.36,
-      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
-    },
-    {
-      "id": "taishan",
-      "name": "泰山",
-      "emoji": "🌄",
-      "province": "山东 · 泰安",
-      "elevation": 1545,
+      "id": "changbaishan",
+      "name": "长白山",
+      "emoji": "🌋",
+      "province": "吉林 · 延边",
+      "elevation": 2691,
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "本周热度上升 43%，夜爬主题搜索量激增；周末阴，正适合出发",
-      "score": 18.06,
-      "weather": "阴，降水概率 8%，山顶夜温约 2°C"
+      "reason": "本周热度上升 51%，天池主题搜索量激增；周末阴，正适合出发",
+      "score": 18.79,
+      "weather": "阴，降水概率 24%，山顶夜温约 -12°C"
+    },
+    {
+      "id": "huangshan",
+      "name": "黄山",
+      "emoji": "🌊",
+      "province": "安徽 · 黄山市",
+      "elevation": 1864,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 5.0,
+      "reason": "本周热度上升 41%，日出主题搜索量激增；周末毛毛雨，正适合出发",
+      "score": 18.19,
+      "weather": "毛毛雨，降水概率 19%，山顶夜温约 0°C"
+    },
+    {
+      "id": "yandangshan",
+      "name": "雁荡山",
+      "emoji": "🗻",
+      "province": "浙江 · 温州",
+      "elevation": 1056,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.6,
+      "reason": "本周热度上升 48%，奇峰主题搜索量激增；周末毛毛雨，正适合出发",
+      "score": 17.79,
+      "weather": "毛毛雨，降水概率 22%，山顶夜温约 10°C"
+    },
+    {
+      "id": "sanqingshan",
+      "name": "三清山",
+      "emoji": "🗿",
+      "province": "江西 · 上饶",
+      "elevation": 1819,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.8,
+      "reason": "本周热度上升 39%，云海主题搜索量激增；周末毛毛雨，正适合出发",
+      "score": 17.62,
+      "weather": "毛毛雨，降水概率 24%，山顶夜温约 2°C"
     },
     {
       "id": "laoshan",
@@ -110,92 +136,38 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.6,
-      "reason": "本周热度上升 50%，道教名山主题搜索量激增；周末阴，正适合出发",
-      "score": 17.95,
-      "weather": "阴，降水概率 4%，山顶夜温约 9°C"
-    },
-    {
-      "id": "wutaishan",
-      "name": "五台山",
-      "emoji": "🙏",
-      "province": "山西 · 忻州",
-      "elevation": 3061,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.6,
-      "reason": "本周热度上升 46%，佛教名山主题搜索量激增；周末阴，正适合出发",
-      "score": 17.85,
-      "weather": "阴，降水概率 24%，山顶夜温约 -15°C"
-    },
-    {
-      "id": "yuntaishan",
-      "name": "云台山",
-      "emoji": "💦",
-      "province": "河南 · 焦作",
-      "elevation": 1308,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.6,
-      "reason": "本周热度上升 47%，峡谷主题搜索量激增；周末毛毛雨，正适合出发",
-      "score": 17.8,
-      "weather": "毛毛雨，降水概率 14%，山顶夜温约 13°C"
+      "reason": "本周热度上升 40%，道教名山主题搜索量激增；周末毛毛雨，正适合出发",
+      "score": 17.23,
+      "weather": "毛毛雨，降水概率 14%，山顶夜温约 8°C"
     }
   ],
   "weekend": [
     {
-      "id": "sanqingshan",
-      "name": "三清山",
-      "emoji": "🗿",
-      "province": "江西 · 上饶",
-      "elevation": 1819,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.8,
-      "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.6,
-      "weather": "阴，降水概率 6%，山顶夜温约 3°C"
+      "id": "huangshan",
+      "name": "黄山",
+      "emoji": "🌊",
+      "province": "安徽 · 黄山市",
+      "elevation": 1864,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 5.0,
+      "reason": "周末毛毛雨，降水概率 19%，山顶夜温约 0°C，说走就走",
+      "score": 19.0,
+      "weather": "毛毛雨，降水概率 19%，山顶夜温约 0°C"
     },
     {
-      "id": "wugongshan",
-      "name": "武功山",
-      "emoji": "⛺",
-      "province": "江西 · 萍乡",
-      "elevation": 1918,
+      "id": "taishan",
+      "name": "泰山",
+      "emoji": "🌄",
+      "province": "山东 · 泰安",
+      "elevation": 1545,
       "difficulty": 3,
       "difficultyLabel": "进阶",
-      "scenery": 4.7,
-      "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.4,
-      "weather": "毛毛雨，降水概率 30%，山顶夜温约 3°C"
+      "scenery": 4.9,
+      "reason": "周末阴，降水概率 6%，山顶夜温约 1°C，说走就走",
+      "score": 18.8,
+      "weather": "阴，降水概率 6%，山顶夜温约 1°C"
     },
-    {
-      "id": "lushan",
-      "name": "庐山",
-      "emoji": "💧",
-      "province": "江西 · 九江",
-      "elevation": 1474,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.7,
-      "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.4,
-      "weather": "大致晴，降水概率 2%，山顶夜温约 6°C"
-    },
-    {
-      "id": "wutaishan",
-      "name": "五台山",
-      "emoji": "🙏",
-      "province": "山西 · 忻州",
-      "elevation": 3061,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.6,
-      "reason": "周末两天刚好走完（建议 3 天行程）",
-      "score": 23.2,
-      "weather": "阴，降水概率 24%，山顶夜温约 -15°C"
-    }
-  ],
-  "editors": [
     {
       "id": "changbaishan",
       "name": "长白山",
@@ -205,10 +177,25 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "长白山是中朝界山，山顶天池如碧玉镶嵌于火山口，十六峰环列",
-      "score": 14.7,
-      "weather": null
+      "reason": "周末阴，降水概率 24%，山顶夜温约 -12°C，说走就走",
+      "score": 18.8,
+      "weather": "阴，降水概率 24%，山顶夜温约 -12°C"
     },
+    {
+      "id": "tianmenshan",
+      "name": "天门山",
+      "emoji": "🚡",
+      "province": "湖南 · 张家界",
+      "elevation": 1518,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.8,
+      "reason": "周末阴，降水概率 16%，山顶夜温约 6°C，说走就走",
+      "score": 18.6,
+      "weather": "阴，降水概率 16%，山顶夜温约 6°C"
+    }
+  ],
+  "editors": [
     {
       "id": "emeishan",
       "name": "峨眉山",
@@ -233,6 +220,19 @@
       "scenery": 4.8,
       "reason": "天门山索道全长 7455 米，堪称世界最长高山客运索道之一",
       "score": 14.4,
+      "weather": null
+    },
+    {
+      "id": "huangshan",
+      "name": "黄山",
+      "emoji": "🌊",
+      "province": "安徽 · 黄山市",
+      "elevation": 1864,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 5.0,
+      "reason": "黄山集奇松、怪石、云海、温泉、冬雪五绝于一身",
+      "score": 15.0,
       "weather": null
     }
   ]
