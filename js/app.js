@@ -816,7 +816,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.12 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.13 · 数据仅保存在本机</div>
   `;
 }
 
@@ -1041,7 +1041,7 @@ function saveRecord() {
 }
 
 /* ================= 山灵 · AI 登山搭子 ================= */
-const QUICK_QUESTIONS = ['想看云海去哪？', '带爸妈休闲爬，求推荐', '我的攀登进度怎么样？', '想挑战 5000 米雪山', '离我近的有哪些？', '我打卡几次了？'];
+const QUICK_QUESTIONS = ['这周末去哪爬？', '想看云海去哪？', '带爸妈休闲爬，求推荐', '我的攀登进度怎么样？', '想挑战 5000 米雪山', '离我近的有哪些？', '我打卡几次了？'];
 
 const TAG_SEASON = { 红叶: [9, 10, 11], 草甸: [5, 6, 9, 10], 雪山: [5, 6, 9, 10], 云海: [3, 4, 5, 9, 10, 11], 星空: [6, 7, 8, 9] };
 
@@ -1050,6 +1050,7 @@ function parseIntent(t) {
     easy: /轻松|休闲|简单|新手|带娃|爸妈|父母|老人|亲子|遛弯|小白|入门/.test(t),
     hard: /挑战|硬核|雪山|大佬|高手|征服|进阶|难度高|5000|五千米/.test(t),
     near: /附近|周边|离我|最近|近一点|不远/.test(t),
+    weekend: /周末|周六|周日|礼拜|这周|下周/.test(t),
     interests: ['日出', '云海', '红叶', '草甸', '露营', '星空', '佛教', '道教', '瀑布', '索道', '夜爬', '雪山', '温泉', '亲子'].filter((k) => t.includes(k)),
     region: REGIONS.find((r) => r !== '全部' && t.includes(r)),
     named: MOUNTAINS.find((m) => t.includes(m.name.replace('大峰', ''))),
@@ -1092,6 +1093,15 @@ function recommendMountains(intent, n = 3) {
       reasons.push(`距你只有 ${fmtDist(d)}`);
     }
     if (intent.region && m.region === intent.region) { score += 4; reasons.push(`就在${intent.region}地区`); }
+    if (remoteRecs && Array.isArray(remoteRecs.trending)) {
+      const tr = remoteRecs.trending.find((r) => r.id === m.id);
+      if (tr) { score += 6; reasons.push(tr.reason); }
+    }
+    if (intent.weekend && remoteRecs && Array.isArray(remoteRecs.weekend)) {
+      const wr = remoteRecs.weekend.find((r) => r.id === m.id);
+      if (wr) { score += 8; reasons.push(wr.reason); }
+      else score -= 3;
+    }
     if (climbed.has(m.id)) score -= 4;
     else reasons.push('你还没打卡过');
     if (!reasons.length) reasons.push(`风景评分 ${m.scenery.toFixed(1)}，经典之选`);
@@ -1119,6 +1129,11 @@ function chatGreeting() {
     ? `你已登顶 ${s.distinct} 座山、累计爬升 ${fmtNum(s.elev)} 米，脚步不停！`
     : '手账还是空白的，随时问我“去哪爬”，我来帮你规划。';
   if (near) t += `现在离你最近的是${near.m.name}（约 ${fmtDist(near.d)}）。`;
+  if (remoteRecs && Array.isArray(remoteRecs.trending) && remoteRecs.trending[0]) {
+    const top = mountainById(remoteRecs.trending[0].id);
+    const reason = String(remoteRecs.trending[0].reason || '').slice(0, 30);
+    if (top && reason) t += `\n📡 今日推荐：${top.emoji}${top.name}——${reason}`;
+  }
   t += '\n可以问我风景、难度、距离——比如“想看云海去哪？”';
   return t;
 }
@@ -1164,15 +1179,20 @@ function chatReply(text) {
     return { text: t };
   }
   const picks = recommendMountains(intent);
-  const intro = intent.easy ? '轻松休闲的路线，我帮你挑了这几座：'
+  const wfy = !!(remoteRecs && remoteRecs.weatherEnabled);
+  const intro = intent.weekend && wfy ? '翻了翻这周末的天气预报，这几座最值得去：'
+    : intent.weekend ? '按周末出行的节奏，这几座最合适：'
+    : intent.easy ? '轻松休闲的路线，我帮你挑了这几座：'
     : intent.hard ? '想来点硬核的？这几座够你喝一壶：'
     : intent.near ? '按离你的距离，这几座最方便：'
+    : wfy ? '看了眼今天的天气和各山热度，我推荐这几座：'
     : '根据你的口味，我推荐这几座：';
   const detail = picks.map((p, i) =>
     `${i + 1}. ${p.m.emoji} ${p.m.name}（${p.m.province}）\n${p.reasons.map((r) => `   · ${r}`).join('\n')}`
   ).join('\n');
+  const src = remoteRecs ? `\n\n📡 已结合推荐引擎 ${remoteRecs.forDate} 的看天与热度数据` : '';
   return {
-    text: `${intro}\n\n${detail}\n\n点击卡片可看路线详情，也可以直接问我“XX山怎么爬”。`,
+    text: `${intro}\n\n${detail}${src}\n\n点击卡片可看路线详情，也可以直接问我“XX山怎么爬”。`,
     cards: picks.map((p) => p.m.id),
   };
 }
@@ -2208,6 +2228,24 @@ function showInstallBanner(kind) {
   }
 }
 
+/* ================= 页内自检（?selftest=1）：验证山灵回答与推荐引擎的接通情况 ================= */
+function runSelfTest() {
+  if (!/[?&]selftest=1/.test(location.search)) return;
+  const box = document.createElement('div');
+  box.id = 'selftest-box';
+  box.style.cssText = 'position:fixed;left:8px;bottom:70px;z-index:99;max-width:72vw;max-height:62vh;overflow:auto;background:rgba(18,53,39,.94);color:#e8f0e9;font:11px/1.7 ui-monospace,monospace;padding:10px 12px;border-radius:10px;white-space:pre-wrap;pointer-events:none';
+  const render = () => {
+    const rec = remoteRecs
+      ? `① 引擎数据：已接入 ${remoteRecs.forDate}${remoteRecs.weatherEnabled ? '（看天）' : ''}，trending ${remoteRecs.trending.length} 条`
+      : '① 引擎数据：未到达（离线或首次加载中）';
+    box.textContent = `【山峦册自检】\n${rec}\n\n② 问"这周末去哪爬？"→\n${chatReply('这周末去哪爬？').text}\n\n③ 问"去哪爬好？"→\n${chatReply('去哪爬好？').text}\n\n④ 问候语→\n${chatGreeting()}`;
+  };
+  render();
+  document.body.appendChild(box);
+  const timer = setInterval(() => { if (remoteRecs) { render(); clearInterval(timer); } }, 800);
+  setTimeout(() => clearInterval(timer), 12000);
+}
+
 initSpriteDrag();
 
 /* 首次访问后 3 秒，给 iOS 用户显示手动添加引导（7 天内不再打扰） */
@@ -2219,3 +2257,4 @@ setTimeout(() => {
 
 fetchRecs();
 route();
+runSelfTest();
