@@ -458,7 +458,7 @@ function viewHome() {
   <div class="hero">
     <div class="scene-wrap">
       <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['hero-qianli']})" aria-hidden="true"></div>
-      <img class="painting" src="img/hero-qianli.webp" alt="《千里江山图》局部" fetchpriority="high" onload="this.classList.add('loaded')" onerror="this.remove()">
+      <img class="painting" src="${HERO_PAINTING_INLINE}" alt="《千里江山图》局部" onload="this.classList.add('loaded')">
       <span class="hero-attribution" aria-hidden="true">《千里江山图》· 北宋 王希孟</span>
       <div class="hero-content">
         <button type="button" class="hero-me" data-action="edit-profile" aria-label="编辑资料">
@@ -2100,38 +2100,70 @@ window.addEventListener('appinstalled', () => {
   $('#pwa-banner')?.remove();
 });
 
-/* 山灵精灵：上下拖动吸附，位置记忆；拖动后不触发点击 */
+/* 山灵精灵：全屏拖动，松手吸附左右边缘，位置记忆；拖动后不触发点击 */
 function initSpriteDrag() {
   const el = $('#chat-fab');
   if (!el) return;
-  const saved = parseFloat(localStorage.getItem('slc.spriteY'));
-  if (Number.isFinite(saved)) el.style.top = saved + 'px';
-  let startY = 0, startTop = 0, moved = false;
+  try {
+    const saved = JSON.parse(localStorage.getItem('slc.spritePos') || 'null');
+    if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+      requestAnimationFrame(() => {
+        el.style.left = Math.max(4, Math.min(window.innerWidth - 60, saved.x)) + 'px';
+        el.style.top = Math.max(60, Math.min(window.innerHeight - 110, saved.y)) + 'px';
+        el.style.right = 'auto';
+        el.style.transform = 'none';
+      });
+    }
+  } catch { /* 忽略 */ }
+
+  let sx = 0, sy = 0, sl = 0, st = 0, moved = false;
   el.addEventListener('pointerdown', (e) => {
-    startY = e.clientY;
-    startTop = parseFloat(getComputedStyle(el).top) || 300;
+    sx = e.clientX; sy = e.clientY;
+    const r = el.getBoundingClientRect();
+    sl = r.left; st = r.top;
     moved = false;
-    el.setPointerCapture(e.pointerId);
+    try { el.setPointerCapture(e.pointerId); } catch { /* 忽略 */ }
   });
   el.addEventListener('pointermove', (e) => {
     if (!el.hasPointerCapture?.(e.pointerId)) return;
-    const dy = e.clientY - startY;
-    if (Math.abs(dy) > 6) moved = true;
-    if (!moved) return;
-    const top = Math.max(70, Math.min(window.innerHeight - 120, startTop + dy));
-    el.style.top = top + 'px';
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (!moved && Math.hypot(dx, dy) < 8) return;
+    moved = true;
+    const r = el.getBoundingClientRect();
+    const x = Math.max(4, Math.min(window.innerWidth - r.width - 4, sl + dx));
+    const y = Math.max(56, Math.min(window.innerHeight - r.height - 74, st + dy));
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.right = 'auto';
     el.style.transform = 'none';
   });
-  el.addEventListener('pointerup', (e) => {
+  const end = (e) => {
+    if (!el.hasPointerCapture?.(e.pointerId)) return;
+    try { el.releasePointerCapture(e.pointerId); } catch { /* 忽略 */ }
     if (!moved) return;
-    const top = parseFloat(getComputedStyle(el).top) || 300;
-    localStorage.setItem('slc.spriteY', String(top));
-    el.releasePointerCapture(e.pointerId);
-  });
-  // 拖动过的点击拦截（capture 阶段）
+    const r = el.getBoundingClientRect();
+    const snapLeft = r.left + r.width / 2 < window.innerWidth / 2;
+    const x = snapLeft ? 4 : window.innerWidth - r.width - 4;
+    el.style.left = x + 'px';
+    try { localStorage.setItem('slc.spritePos', JSON.stringify({ x, y: r.top })); } catch { /* 忽略 */ }
+    setTimeout(() => { moved = false; }, 80);
+  };
+  el.addEventListener('pointerup', end);
+  el.addEventListener('pointercancel', end);
   el.addEventListener('click', (e) => {
-    if (moved) { e.stopImmediatePropagation(); moved = false; }
+    if (moved) e.stopImmediatePropagation();
   }, true);
+  // 窗口尺寸变化时收回视口内
+  window.addEventListener('resize', () => {
+    const r = el.getBoundingClientRect();
+    if (r.left > window.innerWidth - 40 || r.top > window.innerHeight - 100) {
+      el.style.left = '';
+      el.style.top = '';
+      el.style.right = '';
+      el.style.transform = '';
+      try { localStorage.removeItem('slc.spritePos'); } catch { /* 忽略 */ }
+    }
+  });
 }
 
 function isIosStandalone() {
