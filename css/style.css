@@ -303,7 +303,11 @@ ul { list-style: none; }
   box-shadow: var(--shadow-lg);
   background: var(--pine-deep);
 }
-.hero .scene-wrap { position: relative; }
+.hero .scene-wrap {
+  position: relative;
+  aspect-ratio: 2 / 1;   /* 千里江山图 960x480，防止绝对定位内容导致高度塌缩 */
+  min-height: 190px;
+}
 /* 千里江山图 LQIP 极小占位（40x20 webp 放大 + 模糊） */
 .painting-lqip {
   position: absolute;
