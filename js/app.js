@@ -766,11 +766,9 @@ function viewProfile() {
   const climbedCount = firstClimb.size;
   return `
   <div class="me-card" role="button" tabindex="0" aria-label="编辑资料" data-action="edit-profile" title="编辑资料">
-    <div class="me-banner">
-      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['me-qianli']})" aria-hidden="true"></div>
-      <img src="img/me-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
-      <span class="me-banner-cap" aria-hidden="true">《千里江山图》· 局部</span>
-    </div>
+    <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['me-qianli']})" aria-hidden="true"></div>
+    <img class="me-painting" src="img/me-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
+    <span class="me-banner-cap" aria-hidden="true">《千里江山图》· 局部</span>
     <div class="me-row">
     <div class="avatar">${avatarHtml(state.avatar)}</div>
     <div class="me-info">
@@ -818,7 +816,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.11 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.12 · 数据仅保存在本机</div>
   `;
 }
 
