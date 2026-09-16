@@ -1581,6 +1581,121 @@ ul { list-style: none; }
   to { transform: translateY(105vh) rotate(720deg); }
 }
 
+/* ============ 江山舆图（记录页） ============ */
+.map-card {
+  position: relative;
+  background: linear-gradient(165deg, #f3f0e2, #ebe8d7 62%, #e6e3d0);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.map-card .map-fallback {
+  padding: 34px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+.map-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 52.2 / 39.1;
+  touch-action: none;
+  cursor: grab;
+}
+.map-card svg:active { cursor: grabbing; }
+.cm-land path {
+  fill: #e3e6d1;
+  stroke: #87927a;
+  stroke-width: 1px;
+  transition: fill .3s ease;
+}
+.cm-inset-frame {
+  fill: rgba(253, 251, 244, .75);
+  stroke: #87927a;
+  stroke-width: 1px;
+  stroke-dasharray: 3 2;
+}
+.cm-inset-cap {
+  font-family: var(--serif);
+  fill: #5c6852;
+  letter-spacing: .25em;
+}
+.cm-node { cursor: pointer; }
+.cm-dot {
+  fill: #fdfbf4;
+  stroke: var(--pine);
+  stroke-width: 1.5px;
+  transition: fill .25s ease;
+}
+.cm-halo { fill: transparent; transition: fill .25s ease; }
+.cm-node:hover .cm-halo { fill: rgba(184, 68, 44, .18); }
+.cm-node.on .cm-dot { fill: var(--cinnabar); stroke: #fbf6ea; }
+.cm-node.on .cm-halo { fill: rgba(184, 68, 44, .22); }
+.cm-node:hover .cm-dot { stroke: var(--cinnabar); }
+.cm-lab {
+  font-family: var(--serif);
+  fill: #3f4f3d;
+  opacity: 0;
+  transition: opacity .25s ease;
+  paint-order: stroke;
+  stroke: rgba(250, 248, 242, .9);
+  pointer-events: none;
+}
+.cm-node.on .cm-lab { opacity: 1; fill: #8c3a22; }
+svg.zoomed .cm-lab { opacity: 1; }
+.cm-ctl {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cm-ctl button {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: rgba(250, 248, 242, .92);
+  font-size: 15px;
+  line-height: 1;
+  color: var(--pine-deep);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.cm-ctl button:active { transform: scale(.93); }
+.cm-legend {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  color: var(--ink-2);
+  background: rgba(250, 248, 242, .88);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 3px 11px;
+}
+.cm-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.cm-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.lg-on { background: var(--cinnabar); border: 1.5px solid #fbf6ea; box-shadow: 0 0 0 1px var(--cinnabar); }
+.lg-off { background: #fdfbf4; border: 1.5px solid var(--pine); }
+.cm-cap {
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  font-family: var(--serif);
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: rgba(63, 79, 61, .55);
+}
+
 /* ============ 步步登峰 ============ */
 .climb-head { padding: 4px 0 2px; }
 .climb-banner {

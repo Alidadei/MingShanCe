@@ -508,6 +508,36 @@ function viewHome() {
 /* ================= 视图：发现 ================= */
 const exploreState = { q: '', region: '全部', diff: '全部', sort: 'hot', tag: '' };
 
+/* 筛选状态写进 hash（#/explore?tag=云海&diff=1），刷新/分享不丢 */
+function exploreHash() {
+  const p = new URLSearchParams();
+  if (exploreState.tag) p.set('tag', exploreState.tag);
+  if (exploreState.q.trim()) p.set('q', exploreState.q.trim());
+  if (exploreState.region !== '全部') p.set('region', exploreState.region);
+  if (exploreState.diff !== '全部') p.set('diff', exploreState.diff);
+  if (exploreState.sort !== 'hot') p.set('sort', exploreState.sort);
+  const qs = p.toString();
+  return '#/explore' + (qs ? `?${qs}` : '');
+}
+
+let exploreSyncTimer = null;
+function syncExploreHash(soft) {
+  const write = () => history.replaceState(null, '', exploreHash());
+  if (soft) { clearTimeout(exploreSyncTimer); exploreSyncTimer = setTimeout(write, 350); }
+  else write();
+}
+
+function applyExploreHash(rawHash) {
+  const qi = rawHash.indexOf('?');
+  if (qi < 0) return;
+  const p = new URLSearchParams(rawHash.slice(qi + 1));
+  if (p.has('tag')) exploreState.tag = p.get('tag') || '';
+  if (p.has('q')) exploreState.q = p.get('q');
+  if (p.has('region')) exploreState.region = p.get('region');
+  if (p.has('diff')) exploreState.diff = p.get('diff');
+  if (p.has('sort')) exploreState.sort = p.get('sort');
+}
+
 function filteredMountains() {
   let list = [...MOUNTAINS];
   const q = exploreState.q.trim();
@@ -724,6 +754,204 @@ function viewMountain(m) {
   `;
 }
 
+/* ================= 记录页 · 江山舆图 ================= */
+/* 中国轮廓来自 js/chinageo.js（真实经纬，简化自阿里 DataV GeoJSON），
+   山峰节点用 COORDS 真实坐标投影；支持滚轮/双指缩放、拖动平移，点击节点跳详情 */
+let chinaMapCache = null;
+
+function buildChinaMap() {
+  if (chinaMapCache || typeof CHINA_GEO === 'undefined') return chinaMapCache;
+  const K = Math.cos(35.5 * Math.PI / 180);
+  const projMain = (lng, lat) => [(lng - 73.2) * K, 54.6 - lat];
+  const mkPath = (rings, proj, bb) => rings.map((r) => {
+    let d = '';
+    r.forEach((p, i) => {
+      const [x, y] = proj(p[0], p[1]);
+      bb.minX = Math.min(bb.minX, x); bb.maxX = Math.max(bb.maxX, x);
+      bb.minY = Math.min(bb.minY, y); bb.maxY = Math.max(bb.maxY, y);
+      d += `${i ? 'L' : 'M'}${x.toFixed(2)} ${y.toFixed(2)}`;
+    });
+    return d + 'Z';
+  });
+  let bb = { minX: 1e9, minY: 1e9, maxX: -1e9, maxY: -1e9 };
+  const mainPaths = mkPath(CHINA_GEO.main, projMain, bb);
+  const PAD = 0.8;
+  const w = +(bb.maxX - bb.minX + PAD * 2).toFixed(1);
+  const h = +(bb.maxY - bb.minY + PAD * 2).toFixed(1);
+  const ox = +(PAD - bb.minX).toFixed(2), oy = +(PAD - bb.minY).toFixed(2);
+
+  // 南海诸岛插图（独立小投影，右下角摆位）
+  let sb = { minX: 1e9, minY: 1e9, maxX: -1e9, maxY: -1e9 };
+  const SK = Math.cos(11 * Math.PI / 180);
+  const projSouth = (lng, lat) => [(lng - 107.6) * SK, 17.8 - lat];
+  const southPaths = mkPath(CHINA_GEO.south, projSouth, sb);
+  const iw = sb.maxX - sb.minX, ih = sb.maxY - sb.minY;
+  const iscale = +Math.min(12.5 / iw, 13.8 / ih).toFixed(3);
+  const inset = {
+    x: +(w - iw * iscale - 0.9).toFixed(2),
+    y: +(h - ih * iscale - 0.9).toFixed(2),
+    s: iscale,
+    w: +iw.toFixed(2), h: +ih.toFixed(2),
+    dx: +sb.minX.toFixed(2), dy: +sb.minY.toFixed(2),
+  };
+
+  const nodes = MOUNTAINS
+    .filter((m) => COORDS[m.id])
+    .map((m) => {
+      const [x, y] = projMain(COORDS[m.id][1], COORDS[m.id][0]);
+      // 注意：不做偏移——外层 <g translate(ox oy)> 对陆地路径与节点统一生效
+      return { id: m.id, name: m.name, elev: m.elevation, x: +x.toFixed(2), y: +y.toFixed(2) };
+    });
+
+  chinaMapCache = { mainPaths, southPaths, inset, nodes, ox, oy, w, h };
+  return chinaMapCache;
+}
+
+function mountChinaMap() {
+  const host = $('#china-map');
+  if (!host) return;
+  const data = buildChinaMap();
+  if (!data) { host.innerHTML = '<div class="map-fallback">舆图数据未加载，稍后刷新再试</div>'; return; }
+  const climbed = computeStats().ids;
+
+  host.innerHTML = `
+  <svg id="cm-svg" viewBox="0 0 ${data.w} ${data.h}" preserveAspectRatio="xMidYMid meet" role="group" aria-label="中国山峰舆图：按真实地理位置标注 ${data.nodes.length} 座山峰">
+    <g transform="translate(${data.ox} ${data.oy})">
+      <g class="cm-land">${data.mainPaths.map((d) => `<path d="${d}" vector-effect="non-scaling-stroke"/>`).join('')}</g>
+      <g class="cm-inset" transform="translate(${data.inset.x} ${data.inset.y}) scale(${data.inset.s}) translate(${-data.inset.dx} ${-data.inset.dy})">
+        <rect class="cm-inset-frame" x="${data.inset.dx - 0.3}" y="${data.inset.dy - 0.3}" width="${data.inset.w + 0.6}" height="${data.inset.h + 1.4}" vector-effect="non-scaling-stroke"/>
+        <g class="cm-land">${data.southPaths.map((d) => `<path d="${d}" vector-effect="non-scaling-stroke"/>`).join('')}</g>
+        <text class="cm-inset-cap" x="${data.inset.dx + data.inset.w / 2}" y="${data.inset.dy + data.inset.h + 0.9}" text-anchor="middle" font-size="1.5">南海诸岛</text>
+      </g>
+      <g class="cm-nodes">${data.nodes.map((n) => {
+        const on = climbed.has(n.id);
+        return `<g class="cm-node ${on ? 'on' : ''}" data-id="${n.id}">
+          <circle class="cm-halo" cx="${n.x}" cy="${n.y}" r="1.5"/>
+          <circle class="cm-dot" cx="${n.x}" cy="${n.y}" r="0.45" vector-effect="non-scaling-stroke"/>
+          <text class="cm-lab" x="${n.x + 0.7}" y="${n.y + 0.4}">${esc(n.name)}</text>
+          <title>${esc(n.name)} · ${fmtNum(n.elev)}米${on ? ' · 已登顶 ✓' : ''}</title>
+        </g>`;
+      }).join('')}</g>
+    </g>
+  </svg>
+  <div class="cm-ctl">
+    <button type="button" data-z="in" aria-label="放大">＋</button>
+    <button type="button" data-z="out" aria-label="缩小">－</button>
+    <button type="button" data-z="fit" aria-label="复位">⌂</button>
+  </div>
+  <div class="cm-legend"><span><i class="lg-on"></i>已登顶</span><span><i class="lg-off"></i>待登顶</span></div>
+  <div class="cm-cap" aria-hidden="true">底图边界仅示意 · 千里江山 舆图载之</div>`;
+
+  const svg = $('#cm-svg');
+  const view = { x: 0, y: 0, w: data.w, h: data.h };
+  const BASE = { w: data.w, h: data.h };
+
+  const apply = () => {
+    svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
+    svg.classList.toggle('zoomed', view.w < BASE.w * 0.95);
+    const s = view.w / BASE.w;
+    $$('.cm-dot', svg).forEach((c) => c.setAttribute('r', (0.45 * s).toFixed(3)));
+    $$('.cm-halo', svg).forEach((c) => c.setAttribute('r', (1.5 * s).toFixed(3)));
+    $$('.cm-lab', svg).forEach((t) => {
+      t.setAttribute('font-size', (1.15 * s).toFixed(3));
+      t.setAttribute('stroke-width', (0.3 * s).toFixed(3));
+    });
+  };
+  const clamp = () => {
+    view.w = Math.min(BASE.w, Math.max(BASE.w * 0.25, view.w));
+    view.h = Math.min(BASE.h, Math.max(BASE.h * 0.25, view.h));
+    view.x = Math.min(BASE.w - view.w * 0.15, Math.max(-view.w * 0.85, view.x));
+    view.y = Math.min(BASE.h - view.h * 0.15, Math.max(-view.h * 0.85, view.y));
+  };
+  const toMap = (cx, cy) => {
+    const m = svg.getScreenCTM();
+    if (!m) return [view.x + view.w / 2, view.y + view.h / 2];
+    const p = new DOMPoint(cx, cy).matrixTransform(m.inverse());
+    return [p.x, p.y];
+  };
+  const zoomAt = (mx, my, f) => {
+    const nw = Math.min(BASE.w, Math.max(BASE.w * 0.25, view.w * f));
+    const k = nw / view.w;
+    view.x = mx - (mx - view.x) * k;
+    view.y = my - (my - view.y) * k;
+    view.w = nw; view.h *= k;
+    clamp(); apply();
+  };
+
+  svg.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const [mx, my] = toMap(e.clientX, e.clientY);
+    zoomAt(mx, my, e.deltaY > 0 ? 1.25 : 0.8);
+  }, { passive: false });
+
+  svg.addEventListener('dblclick', (e) => {
+    const [mx, my] = toMap(e.clientX, e.clientY);
+    zoomAt(mx, my, 0.55);
+  });
+
+  const ptrs = new Map();
+  let dragMoved = 0;
+  svg.addEventListener('pointerdown', (e) => {
+    try { svg.setPointerCapture(e.pointerId); } catch { /* 部分浏览器 capture 失败可忽略 */ }
+    ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (ptrs.size === 1) dragMoved = 0;
+  });
+  svg.addEventListener('pointermove', (e) => {
+    if (!ptrs.has(e.pointerId)) return;
+    const old = new Map(ptrs);
+    ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (ptrs.size === 1) {
+      const prev = old.get(e.pointerId);
+      dragMoved += Math.abs(e.clientX - prev[0]) + Math.abs(e.clientY - prev[1]);
+      view.x -= (e.clientX - prev[0]) * (view.w / svg.clientWidth);
+      view.y -= (e.clientY - prev[1]) * (view.h / svg.clientHeight);
+      clamp(); apply();
+    } else if (ptrs.size === 2) {
+      const o = [...old.values()], n = [...ptrs.values()];
+      const od = Math.hypot(o[0][0] - o[1][0], o[0][1] - o[1][1]);
+      const nd = Math.hypot(n[0][0] - n[1][0], n[0][1] - n[1][1]);
+      const om = [(o[0][0] + o[1][0]) / 2, (o[0][1] + o[1][1]) / 2];
+      const nm = [(n[0][0] + n[1][0]) / 2, (n[0][1] + n[1][1]) / 2];
+      view.x -= (nm[0] - om[0]) * (view.w / svg.clientWidth);
+      view.y -= (nm[1] - om[1]) * (view.h / svg.clientHeight);
+      dragMoved = 99;
+      if (od > 8 && nd > 8) {
+        const [mx, my] = toMap(nm[0], nm[1]);
+        zoomAt(mx, my, od / nd);
+      } else { clamp(); apply(); }
+    }
+  });
+  const endPtr = (e) => {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.delete(e.pointerId);
+    if (ptrs.size === 0) {
+      if (dragMoved < 7) {
+        const node = e.target.closest && e.target.closest('.cm-node');
+        if (node && node.dataset.id) {
+          location.hash = `#/mountain/${node.dataset.id}`;
+          return;
+        }
+      }
+      dragMoved = 0;
+    }
+  };
+  svg.addEventListener('pointerup', endPtr);
+  svg.addEventListener('pointercancel', endPtr);
+
+  host.querySelector('.cm-ctl').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-z]');
+    if (!b) return;
+    if (b.dataset.z === 'fit') {
+      view.x = 0; view.y = 0; view.w = BASE.w; view.h = BASE.h;
+      apply();
+      return;
+    }
+    zoomAt(view.x + view.w / 2, view.y + view.h / 2, b.dataset.z === 'in' ? 0.7 : 1.43);
+  });
+
+  apply();
+}
+
 /* ================= 视图：记录 ================= */
 function viewRecords() {
   const s = computeStats();
@@ -749,6 +977,9 @@ function viewRecords() {
       <div class="sg"><b>${fmtNum(s.elev)}</b><span>累计海拔(米)</span></div>
     </div>
   </div>
+
+  <div class="section-title">江山舆图 <small>${s.distinct}/${MOUNTAINS.length} 已点亮 · 缩放拖动 · 点山峰看详情</small></div>
+  <div class="map-card" id="china-map"><div class="map-fallback">舆图绘制中…</div></div>
 
   <div class="section-title">全部记录 <small>共 ${list.length} 条</small></div>
   ${list.length
@@ -816,7 +1047,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.13 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.14 · 数据仅保存在本机</div>
   `;
 }
 
@@ -824,7 +1055,8 @@ function viewProfile() {
 const VIEWS = { home: viewHome, explore: viewExplore, records: viewRecords, profile: viewProfile, climb: viewClimb };
 
 function route() {
-  const hash = location.hash || '#/home';
+  const rawHash = location.hash || '#/home';
+  const hash = rawHash.split('?')[0] || '#/home';
   const page = $('#page');
   const tabbar = $('#tabbar');
   $$('.tab', tabbar).forEach((t) => t.classList.remove('on'));
@@ -843,12 +1075,14 @@ function route() {
   if (fab) fab.classList.remove('hide');
 
   const name = (hash.replace('#/', '').split('/'))[0] || 'home';
+  if (name === 'explore') applyExploreHash(rawHash);
   const view = VIEWS[name] || viewHome;
   page.innerHTML = view();
   tabbar.classList.remove('hidden');
   const tab = $(`.tab[data-tab="${name}"]`) || $(`.tab[data-tab="home"]`);
   tab.classList.add('on');
   if (name !== 'explore') window.scrollTo(0, 0);
+  if (name === 'records') mountChinaMap();
 
   if (name === 'explore' && !state.lastPos) {
     maybeAutoLocate();
@@ -1260,6 +1494,8 @@ function streamLastMsg() {
   }, 16);
 }
 
+let chatStackPushed = false;
+
 function openChat() {
   if (!state.chats.length) {
     pushChatMsg({ role: 'bot', text: chatGreeting(), at: Date.now() });
@@ -1283,12 +1519,29 @@ function openChat() {
     </div>
   </div>`;
   renderChatBody();
+  // 占一条历史记录：手机后退键/浏览器后退即可关闭对话（popstate 兜底）
+  if (!chatStackPushed) {
+    history.pushState({ slcChat: 1 }, '', location.href);
+    chatStackPushed = true;
+  }
 }
 
-function closeChat() {
+function closeChat(viaHistory) {
   clearInterval(chatStreamTimer);
   $('#chat-root').innerHTML = '';
+  if (chatStackPushed && !viaHistory) {
+    chatStackPushed = false;
+    history.back(); // 弹掉占位记录；popstate 里再关一次是幂等的
+    return;
+  }
+  chatStackPushed = false;
 }
+
+/* 后退键（含安卓物理返回）关闭山灵 */
+window.addEventListener('popstate', () => {
+  chatStackPushed = false;
+  if ($('#chat-root').innerHTML) closeChat(true);
+});
 
 function sendChat(text) {
   text = (text || '').trim();
@@ -1812,7 +2065,7 @@ function handleAction(t) {
   const { action } = t.dataset;
   switch (action) {
     case 'open-mountain':
-      closeChat();
+      closeChat(true); // 仅收起面板，不动历史栈（跳转已由下一行入栈）
       location.hash = `#/mountain/${t.dataset.id}`;
       break;
     case 'open-chat':
@@ -1902,20 +2155,28 @@ function handleAction(t) {
     case 'theme': {
       exploreState.tag = t.dataset.tag;
       exploreState.q = ''; exploreState.region = '全部'; exploreState.diff = '全部';
-      location.hash = '#/explore';
-      if ((location.hash || '') === '#/explore') route();
+      const h = exploreHash();
+      if ((location.hash || '#/home').startsWith('#/explore')) {
+        history.replaceState(null, '', h); // 已在发现页：就地替换，不堆历史
+        route();
+      } else {
+        location.hash = h; // 跨页跳转：留一条历史，后退可回
+      }
       break;
     }
     case 'clear-tag':
       exploreState.tag = '';
+      syncExploreHash();
       route();
       break;
     case 'f-diff':
       exploreState.diff = t.dataset.key;
+      syncExploreHash();
       route();
       break;
     case 'f-region':
       exploreState.region = t.dataset.key;
+      syncExploreHash();
       route();
       break;
     case 'checkin':
@@ -2038,6 +2299,7 @@ document.addEventListener('click', (e) => {
 
 /* role=button 卡片的键盘操作（Enter / 空格） */
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && $('#chat-root').innerHTML) { closeChat(); return; }
   if (albumState) {
     if (e.key === 'Escape') { albumState = null; closeModal(); return; }
     if (e.key === 'ArrowLeft') { albumStep(-1); return; }
@@ -2075,6 +2337,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('input', (e) => {
   if (e.target.id === 'explore-search') {
     exploreState.q = e.target.value;
+    syncExploreHash(true); // 输入防抖后写 hash，刷新不丢
     const grid = $('.m-grid');
     if (grid) {
       const list = filteredMountains();
@@ -2090,6 +2353,7 @@ document.addEventListener('input', (e) => {
 document.addEventListener('change', (e) => {
   if (e.target.id === 'explore-sort') {
     exploreState.sort = e.target.value;
+    syncExploreHash();
     route();
     if (e.target.value === 'near' && !state.lastPos) requestLocation();
   }
@@ -2238,7 +2502,11 @@ function runSelfTest() {
     const rec = remoteRecs
       ? `① 引擎数据：已接入 ${remoteRecs.forDate}${remoteRecs.weatherEnabled ? '（看天）' : ''}，trending ${remoteRecs.trending.length} 条`
       : '① 引擎数据：未到达（离线或首次加载中）';
-    box.textContent = `【山峦册自检】\n${rec}\n\n② 问"这周末去哪爬？"→\n${chatReply('这周末去哪爬？').text}\n\n③ 问"去哪爬好？"→\n${chatReply('去哪爬好？').text}\n\n④ 问候语→\n${chatGreeting()}`;
+    const geo = typeof CHINA_GEO !== 'undefined' && CHINA_GEO.main ? buildChinaMap() : null;
+    const mapLine = geo
+      ? `⑤ 舆图：主图 ${CHINA_GEO.main.length} 环 · 南海 ${CHINA_GEO.south.length} 环 · 节点 ${geo.nodes.length} 座 · 画布 ${geo.w}×${geo.h}`
+      : '⑤ 舆图：数据未加载';
+    box.textContent = `【山峦册自检】\n${rec}\n\n② 问"这周末去哪爬？"→\n${chatReply('这周末去哪爬？').text}\n\n③ 问"去哪爬好？"→\n${chatReply('去哪爬好？').text}\n\n④ 问候语→\n${chatGreeting()}\n\n${mapLine}`;
   };
   render();
   document.body.appendChild(box);

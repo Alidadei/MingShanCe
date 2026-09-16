@@ -5,7 +5,7 @@
    - api/recs.json：network-first（有网拿最新看天推荐，失败读缓存）
    - 导航请求：network-first，失败回退缓存的 index.html（山里无信号也能用）
    发布新版本时递增 VERSION。 */
-const VERSION = 'shanluance-v3.13';
+const VERSION = 'shanluance-v3.14';
 const CORE_CACHE = `${VERSION}-core`;
 const IMG_CACHE = `${VERSION}-img`;
 const API_CACHE = `${VERSION}-api`;
@@ -17,6 +17,7 @@ const CORE_ASSETS = [
   'js/data.js',
   'js/photos.js',
   'js/lqip.js',
+  'js/chinageo.js',
   'js/app.js',
   'manifest.json',
   'img/icon-192.png',
