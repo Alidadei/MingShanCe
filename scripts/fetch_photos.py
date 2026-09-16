@@ -47,7 +47,7 @@ M = {
     "shennongjia": (r"shen\s?nong|神农架", ["Shennongjia", "神农架", "Shennong Ding"]),
     "laojunshan": (r"lao\s?jun|老君山", ["Laojunshan Luanchuan", "老君山", "Laojun Mountain Luoyang"]),
     "yuntaishan": (r"yun\s?tai|云台山", ["Yuntai Mountain Jiaozuo", "云台山", "Yuntaishan Henan"]),
-    "jigongshan": (r"ji\s?gong|鸡公山", ["Jigongshan", "鸡公山", "Jigong Mountain"]),
+    "jigongshan": (r"ji\s?gong|鸡公山", ["鸡公山景区", "Jigongshan mountain view", "鸡公山"]),
     "yandangshan": (r"yan\s?dang|雁荡山", ["Yandangshan", "雁荡山", "Yandang Mountain"]),
     "tianmushan": (r"tian\s?mu|天目山", ["Tianmu Mountain", "天目山", "Tianmushan"]),
     "moganshan": (r"moganshan|mo\s?gan\s?shan|莫干山", ["Moganshan", "莫干山", "Mogan Mountain Deqing"]),
@@ -56,7 +56,7 @@ M = {
     "jinggangshan": (r"jing\s?gang\s?shan|井冈山", ["Jinggangshan mountain", "井冈山杜鹃", "Jinggang Mountains scenery"]),
     "longhushan": (r"long\s?hu|龙虎山", ["Longhushan", "龙虎山", "Mount Longhu"]),
     "danxiashan": (r"dan\s?xia|丹霞山", ["Danxiashan", "丹霞山", "Mount Danxia"]),
-    "maoershan": (r"mao\s?er|猫儿山", ["Maoershan Guangxi", "猫儿山", "Cat Mountain Guangxi"]),
+    "maoershan": (r"maoershan|猫儿山", ["猫儿山", "Maoershan Guangxi peak", "Maoer Mountain Guangxi"]),
     "wuzhishan": (r"wu\s?zhi|五指山", ["Wuzhishan Hainan", "五指山", "Wuzhi Mountain Hainan"]),
     "putuoshan": (r"putuo|普陀山", ["Mount Putuo", "普陀山", "Putuoshan"]),
     "fanjingshan": (r"fan\s?jing|梵净山", ["Fanjingshan", "梵净山", "Mount Fanjing"]),
@@ -65,6 +65,14 @@ M = {
     "jizushan": (r"ji\s?zu|鸡足山", ["Jizushan", "鸡足山", "Jizu Mountain"]),
     "habaxueshan": (r"ha\s?ba|哈巴雪山", ["Haba Snow Mountain", "哈巴雪山", "Haba Xueshan"]),
     "gonggashan": (r"gong\s?ga|贡嘎", ["Minya Konka", "贡嘎山", "Gongga Shan"]),
+    "tanglangshan": (r"tang\s?lang|塘朗", ["塘朗山", "塘朗山公园", "Tanglangshan"]),
+    "maluanshan": (r"ma\s?luan|马峦", ["马峦山瀑布", "马峦山", "Maluan Mountain Shenzhen"]),
+    "wutongshan": (r"wutong\s?shan|梧桐山|wutong mountain", ["Wutongshan", "梧桐山", "Wutong Mountain Shenzhen"]),
+    "yushan": (r"yu\s?shan|玉山|mount jade|jade mountain", ["Yushan peak", "玉山主峰", "Mount Jade Taiwan", "玉山"]),
+    "bogda": (r"bogda|博格达|tian\s?shan|天山", ["Bogda Peak", "博格达峰", "Tianshan Tianchi", "天山天池"]),
+    "yuzhufeng": (r"yu\s?zhu|玉珠", ["Yuzhu Peak", "玉珠峰", "Yuzhufeng Kunlun"]),
+    "aershan": (r"arxan|a\s?er\s?shan|阿尔山", ["阿尔山国家森林公园", "Arxan National Forest Park", "阿尔山不冻河", "阿尔山天池"]),
+    "namjagbarwa": (r"namcha|namjag|南迦巴瓦", ["Namcha Barwa", "南迦巴瓦峰", "Namjagbarwa"]),
 }
 
 
@@ -126,7 +134,8 @@ def search(pattern, query):
             continue
         if not (1.05 <= (w / h if h else 0) <= 2.6):
             continue
-        if re.search(r"map|地图|diagram|logo|station|airport|ticket|游客中心|入口|gate|bird|dove|bridge|sedan|railway|train|painting|zhuhai|珠海", title, re.I):
+        if re.search(r"map|地图|diagram|logo|station|airport|ticket|游客中心|入口|gate|bird|dove|bridge|sedan|railway|train|painting|zhuhai|珠海"
+                     r"|隧道|tunnel|救援|rescue|capela|chapel|rhododendron|botanical|杜鹃花|flower|道路|公路|highway|freeway", title, re.I):
             continue
         if not re.search(pattern, title, re.I):
             continue  # 标题必须命中山名
@@ -156,11 +165,15 @@ def main(force=False):
     EXTRA = 3  # 每山补充照片数（相册）
     ok, fail = 0, []
     for mid, (pattern, queries) in M.items():
+        # jpg 转完 webp 会被删除，因此 webp 也视为"已存在"，避免老山被整轮重抓
         main_out = IMG / f"{mid}.jpg"
-        need_main = force or not (main_out.exists() and main_out.stat().st_size > 20000)
+        has_main = ((main_out.exists() and main_out.stat().st_size > 20000)
+                    or (IMG / f"{mid}.webp").exists())
+        need_main = force or not has_main
         missing_extra = [i for i in range(2, 2 + EXTRA)
-                         if force or not (IMG / f"{mid}-{i}.jpg").exists()]
-        if not need_main and not missing_extra and mid in credits:
+                         if force or not ((IMG / f"{mid}-{i}.jpg").exists()
+                                          or (IMG / f"{mid}-{i}.webp").exists())]
+        if not need_main and not missing_extra:
             ok += 1
             print(f"[{mid}] 已齐全，跳过")
             continue

@@ -71,6 +71,14 @@ BEST_MONTHS = {
     "jizushan": [3, 4, 5, 6, 9, 10, 11],
     "habaxueshan": [5, 6, 9, 10],
     "gonggashan": [5, 6, 9, 10],
+    "tanglangshan": [10, 11, 12, 1, 2],
+    "maluanshan": [5, 6, 9, 10, 11],
+    "wutongshan": [10, 11, 12, 1, 2, 3],
+    "yushan": [4, 5, 10, 11],
+    "bogda": [6, 7, 8, 9],
+    "yuzhufeng": [6, 7, 8],
+    "aershan": [6, 7, 8, 9],
+    "namjagbarwa": [3, 4, 10, 11],
 }
 
 # 标签的季节加成

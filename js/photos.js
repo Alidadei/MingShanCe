@@ -2,11 +2,22 @@
 'use strict';
 
 const PHOTO_ALBUMS = {
+  "aershan": [
+    "img/aershan.webp",
+    "img/aershan-2.webp",
+    "img/aershan-3.webp",
+    "img/aershan-4.webp"
+  ],
   "baiyunshan": [
     "img/baiyunshan.webp",
     "img/baiyunshan-2.webp",
     "img/baiyunshan-3.webp",
     "img/baiyunshan-4.webp"
+  ],
+  "bogda": [
+    "img/bogda.webp",
+    "img/bogda-3.webp",
+    "img/bogda-4.webp"
   ],
   "cangshan": [
     "img/cangshan.webp",
@@ -131,11 +142,23 @@ const PHOTO_ALBUMS = {
     "img/maijishan-3.webp",
     "img/maijishan-4.webp"
   ],
+  "maluanshan": [
+    "img/maluanshan.webp",
+    "img/maluanshan-2.webp",
+    "img/maluanshan-3.webp",
+    "img/maluanshan-4.webp"
+  ],
   "moganshan": [
     "img/moganshan.webp",
     "img/moganshan-2.webp",
     "img/moganshan-3.webp",
     "img/moganshan-4.webp"
+  ],
+  "namjagbarwa": [
+    "img/namjagbarwa.webp",
+    "img/namjagbarwa-2.webp",
+    "img/namjagbarwa-3.webp",
+    "img/namjagbarwa-4.webp"
   ],
   "putuoshan": [
     "img/putuoshan.webp",
@@ -145,6 +168,8 @@ const PHOTO_ALBUMS = {
   ],
   "qianshan": [
     "img/qianshan.webp",
+    "img/qianshan-2.webp",
+    "img/qianshan-3.webp",
     "img/qianshan-4.webp"
   ],
   "qingchengshan": [
@@ -183,14 +208,26 @@ const PHOTO_ALBUMS = {
     "img/taishan-3.webp",
     "img/taishan-4.webp"
   ],
+  "tanglangshan": [
+    "img/tanglangshan.webp",
+    "img/tanglangshan-2.webp",
+    "img/tanglangshan-4.webp"
+  ],
   "tianmenshan": [
     "img/tianmenshan.webp",
     "img/tianmenshan-2.webp",
     "img/tianmenshan-3.webp",
     "img/tianmenshan-4.webp"
   ],
+  "tianmushan": [
+    "img/tianmushan.webp",
+    "img/tianmushan-2.webp",
+    "img/tianmushan-3.webp",
+    "img/tianmushan-4.webp"
+  ],
   "wudangshan": [
     "img/wudangshan.webp",
+    "img/wudangshan-2.webp",
     "img/wudangshan-3.webp",
     "img/wudangshan-4.webp"
   ],
@@ -206,6 +243,18 @@ const PHOTO_ALBUMS = {
     "img/wutaishan-3.webp",
     "img/wutaishan-4.webp"
   ],
+  "wutongshan": [
+    "img/wutongshan.webp",
+    "img/wutongshan-2.webp",
+    "img/wutongshan-3.webp",
+    "img/wutongshan-4.webp"
+  ],
+  "wuzhishan": [
+    "img/wuzhishan.webp",
+    "img/wuzhishan-2.webp",
+    "img/wuzhishan-3.webp",
+    "img/wuzhishan-4.webp"
+  ],
   "xiangshan": [
     "img/xiangshan.webp",
     "img/xiangshan-2.webp",
@@ -215,30 +264,38 @@ const PHOTO_ALBUMS = {
   "xiaowutaishan": [
     "img/xiaowutaishan.webp"
   ],
+  "yandangshan": [
+    "img/yandangshan.webp",
+    "img/yandangshan-2.webp",
+    "img/yandangshan-3.webp",
+    "img/yandangshan-4.webp"
+  ],
   "yuelushan": [
     "img/yuelushan.webp",
     "img/yuelushan-2.webp",
     "img/yuelushan-3.webp",
     "img/yuelushan-4.webp"
   ],
-  "tianmushan": [
-    "img/tianmushan-2.webp",
-    "img/tianmushan-3.webp",
-    "img/tianmushan-4.webp"
-  ],
-  "wuzhishan": [
-    "img/wuzhishan-2.webp",
-    "img/wuzhishan-3.webp",
-    "img/wuzhishan-4.webp"
-  ],
-  "yandangshan": [
-    "img/yandangshan-2.webp",
-    "img/yandangshan-3.webp",
-    "img/yandangshan-4.webp"
-  ],
   "yuntaishan": [
+    "img/yuntaishan.webp",
     "img/yuntaishan-2.webp",
     "img/yuntaishan-3.webp",
     "img/yuntaishan-4.webp"
+  ],
+  "yushan": [
+    "img/yushan.webp",
+    "img/yushan-2.webp",
+    "img/yushan-3.webp",
+    "img/yushan-4.webp"
+  ],
+  "yuzhufeng": [
+    "img/yuzhufeng.webp",
+    "img/yuzhufeng-2.webp",
+    "img/yuzhufeng-3.webp",
+    "img/yuzhufeng-4.webp"
+  ],
+  "jigongshan": [
+    "img/jigongshan-3.webp",
+    "img/jigongshan-4.webp"
   ]
 };
