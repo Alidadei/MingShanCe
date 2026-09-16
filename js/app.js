@@ -1066,7 +1066,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.16 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.17 · 数据仅保存在本机</div>
   `;
 }
 
@@ -2090,6 +2090,9 @@ function handleAction(t) {
     case 'open-chat':
       openChat();
       break;
+    case 'install-pwa':
+      installPwa();
+      break;
     case 'close-chat':
       closeChat();
       break;
@@ -2402,10 +2405,37 @@ window.addEventListener('beforeinstallprompt', (e) => {
   if (!localStorage.getItem('slc.installDismissed')) showInstallBanner('android');
 });
 
+/* 右上角 ↓ 按钮：一键安装为桌面应用 */
+function hidePwaDl() {
+  $('#pwa-dl')?.classList.add('hidden');
+}
+
+async function installPwa() {
+  if (pwaInstallEvent) {
+    pwaInstallEvent.prompt();
+    try {
+      const { outcome } = await pwaInstallEvent.userChoice;
+      if (outcome === 'accepted') toast('已开始安装，完成后从桌面全屏打开名山册 🏔️');
+      else toast('随时点右上角 ↓ 都可以安装名山册');
+    } catch { /* 用户关闭系统弹窗 */ }
+    pwaInstallEvent = null;
+    hidePwaDl();
+    return;
+  }
+  if (isIosStandalone()) { showInstallBanner('ios'); return; }
+  toast('当前浏览器不支持一键安装：用 Chrome / Edge 菜单里的「安装名山册」即可');
+}
+
 window.addEventListener('appinstalled', () => {
   pwaInstallEvent = null;
+  hidePwaDl();
   $('#pwa-banner')?.remove();
 });
+
+/* 已在独立窗口运行（已安装）时不再显示下载按钮 */
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+  requestAnimationFrame(hidePwaDl);
+}
 
 /* 山灵精灵：全屏拖动，松手吸附左右边缘，位置记忆；拖动后不触发点击 */
 function initSpriteDrag() {

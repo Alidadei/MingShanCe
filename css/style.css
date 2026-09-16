@@ -1194,6 +1194,30 @@ ul { list-style: none; }
 }
 
 /* ============ 山灵 · 贴边精灵 ============ */
+/* ============ 下载为桌面应用（右上角） ============ */
+.pwa-dl {
+  position: fixed;
+  top: 10px;
+  right: max(calc(50% - 260px + 2px), 2px); /* 与山灵精灵同列，贴内容右缘 */
+  z-index: 55;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(250, 248, 242, .92);
+  color: var(--pine-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.pwa-dl svg { width: 17px; height: 17px; }
+.pwa-dl:active { transform: scale(.92); }
+.pwa-dl.hidden { display: none; }
+@media (display-mode: standalone) { .pwa-dl { display: none; } }
+
 .chat-sprite {
   position: fixed;
   top: 42%;
