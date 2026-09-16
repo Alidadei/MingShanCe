@@ -2076,7 +2076,15 @@ window.addEventListener('hashchange', route);
 /* ================= PWA：Service Worker 与安装引导 ================= */
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* 静默失败 */ });
+    // updateViaCache:'none'：sw.js 本身不走 HTTP 缓存，每次导航都拿最新版
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+      .then((reg) => {
+        // 页面重新可见时立即检查更新，配合 SW 内 skipWaiting 秒级生效
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') reg.update().catch(() => {});
+        });
+      })
+      .catch(() => { /* 静默失败 */ });
   });
 }
 
@@ -2091,6 +2099,40 @@ window.addEventListener('appinstalled', () => {
   pwaInstallEvent = null;
   $('#pwa-banner')?.remove();
 });
+
+/* 山灵精灵：上下拖动吸附，位置记忆；拖动后不触发点击 */
+function initSpriteDrag() {
+  const el = $('#chat-fab');
+  if (!el) return;
+  const saved = parseFloat(localStorage.getItem('slc.spriteY'));
+  if (Number.isFinite(saved)) el.style.top = saved + 'px';
+  let startY = 0, startTop = 0, moved = false;
+  el.addEventListener('pointerdown', (e) => {
+    startY = e.clientY;
+    startTop = parseFloat(getComputedStyle(el).top) || 300;
+    moved = false;
+    el.setPointerCapture(e.pointerId);
+  });
+  el.addEventListener('pointermove', (e) => {
+    if (!el.hasPointerCapture?.(e.pointerId)) return;
+    const dy = e.clientY - startY;
+    if (Math.abs(dy) > 6) moved = true;
+    if (!moved) return;
+    const top = Math.max(70, Math.min(window.innerHeight - 120, startTop + dy));
+    el.style.top = top + 'px';
+    el.style.transform = 'none';
+  });
+  el.addEventListener('pointerup', (e) => {
+    if (!moved) return;
+    const top = parseFloat(getComputedStyle(el).top) || 300;
+    localStorage.setItem('slc.spriteY', String(top));
+    el.releasePointerCapture(e.pointerId);
+  });
+  // 拖动过的点击拦截（capture 阶段）
+  el.addEventListener('click', (e) => {
+    if (moved) { e.stopImmediatePropagation(); moved = false; }
+  }, true);
+}
 
 function isIosStandalone() {
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -2129,6 +2171,8 @@ function showInstallBanner(kind) {
     };
   }
 }
+
+initSpriteDrag();
 
 /* 首次访问后 3 秒，给 iOS 用户显示手动添加引导（7 天内不再打扰） */
 setTimeout(() => {

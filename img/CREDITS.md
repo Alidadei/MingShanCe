@@ -123,3 +123,8 @@
 - **贡嘎山·相册3**（`gonggashan-4.webp`）：[File:金色贡嘎 - Golden Mountains - 2012.10 - panoramio.jpg](https://commons.wikimedia.org/wiki/File%3A%E9%87%91%E8%89%B2%E8%B4%A1%E5%98%8E%20-%20Golden%20Mountains%20-%202012.10%20-%20panoramio.jpg)，作者：rheins，许可：CC BY 3.0
 - **主页横幅《千里江山图》**（`hero-qianli.webp`）：[File:1c Wang Ximeng. A Thousand Li of Rivers and Mountains. (section)](https://commons.wikimedia.org/wiki/File:1c_Wang_Ximeng._A_Thousand_Li_of_Rivers_and_Mountains._(51,3x1191,5cm)1113._(section)_Palace_museum,_Beijing.jpg)，作者：王希孟（北宋，1113 年），来源：北京故宫博物院藏卷扫描，许可：公有领域（PD-Art）
 - **登山手账横幅《千里江山图》卷末段**（`rec-qianli.webp`）：[File:Wang Ximeng - A Thousand Li of River (End)](https://commons.wikimedia.org/wiki/File:Wang_Ximeng_-_A_Thousand_Li_of_River_(End).jpg)，作者：王希孟（北宋），许可：公有领域（PD-Art）
+
+- **雁荡山·相册1**（`yandangshan.webp`）：[File:雁荡山剪刀峰 - panoramio.jpg](https://commons.wikimedia.org/wiki/File%3A%E9%9B%81%E8%8D%A1%E5%B1%B1%E5%89%AA%E5%88%80%E5%B3%B0%20-%20panoramio.jpg)，作者：江上清风1961，许可：CC BY 3.0
+- **五指山·相册1**（`wuzhishan.webp`）：[File:Wuzhi Shan Hainan China.jpg](https://commons.wikimedia.org/wiki/File%3AWuzhi%20Shan%20Hainan%20China.jpg)，作者：Anna Frodesiak，许可：Public domain
+- **云台山·相册1**（`yuntaishan.webp`）：[File:20210521 King of Medicine Cave at Yuntai Mountain.jpg](https://commons.wikimedia.org/wiki/File%3A20210521%20King%20of%20Medicine%20Cave%20at%20Yuntai%20Mountain.jpg)，作者：Windmemories，许可：CC BY-SA 4.0
+- **天目山·相册1**（`tianmushan.webp`）：[File:Tianmu Mountain Sleeping Cow Pavilion.jpg](https://commons.wikimedia.org/wiki/File%3ATianmu%20Mountain%20Sleeping%20Cow%20Pavilion.jpg)，作者：Yxh1433，许可：CC BY-SA 4.0

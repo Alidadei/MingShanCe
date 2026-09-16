@@ -1190,11 +1190,12 @@ ul { list-style: none; }
 /* ============ 山灵 · 贴边精灵 ============ */
 .chat-sprite {
   position: fixed;
-  top: 50%;
+  top: 42%;
   right: max(calc(50% - 260px + 2px), 2px);
-  transform: translateY(-50%);
-  width: 46px;
-  height: 58px;
+  width: 42px;
+  height: 54px;
+  touch-action: none;
+  cursor: grab;
   z-index: 60;
   display: flex;
   align-items: center;
@@ -1203,7 +1204,7 @@ ul { list-style: none; }
   animation: spriteIn .6s cubic-bezier(.2, .9, .3, 1.4) both;
 }
 .chat-sprite.hide { display: none; }
-.chat-sprite:active { transform: translateY(-50%) scale(.9); }
+.chat-sprite:active { cursor: grabbing; }
 .chat-sprite .cs-body {
   width: 44px;
   height: 44px;
