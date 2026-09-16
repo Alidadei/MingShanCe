@@ -825,7 +825,7 @@ function mountChinaMap() {
       </g>
       <g class="cm-nodes">${data.nodes.map((n) => {
         const on = climbed.has(n.id);
-        return `<g class="cm-node ${on ? 'on' : ''}" data-id="${n.id}">
+        return `<g class="cm-node ${on ? 'on' : ''}" data-id="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}，海拔 ${fmtNum(n.elev)} 米${on ? '，已登顶' : ''}">
           <circle class="cm-halo" cx="${n.x}" cy="${n.y}" r="1.5"/>
           <circle class="cm-dot" cx="${n.x}" cy="${n.y}" r="0.45" vector-effect="non-scaling-stroke"/>
           <text class="cm-lab" x="${n.x + 0.7}" y="${n.y + 0.4}">${esc(n.name)}</text>
@@ -891,10 +891,15 @@ function mountChinaMap() {
 
   const ptrs = new Map();
   let dragMoved = 0;
+  let lastDrag = 0;
+  let downNode = null; // pointer capture 会把 pointerup 的 target 重定向到 svg 根，须在按下时记节点
   svg.addEventListener('pointerdown', (e) => {
     try { svg.setPointerCapture(e.pointerId); } catch { /* 部分浏览器 capture 失败可忽略 */ }
     ptrs.set(e.pointerId, [e.clientX, e.clientY]);
-    if (ptrs.size === 1) dragMoved = 0;
+    if (ptrs.size === 1) {
+      dragMoved = 0;
+      downNode = e.target.closest ? e.target.closest('.cm-node') : null;
+    }
   });
   svg.addEventListener('pointermove', (e) => {
     if (!ptrs.has(e.pointerId)) return;
@@ -925,18 +930,32 @@ function mountChinaMap() {
     if (!ptrs.has(e.pointerId)) return;
     ptrs.delete(e.pointerId);
     if (ptrs.size === 0) {
-      if (dragMoved < 7) {
-        const node = e.target.closest && e.target.closest('.cm-node');
-        if (node && node.dataset.id) {
-          location.hash = `#/mountain/${node.dataset.id}`;
-          return;
-        }
+      const hit = downNode && downNode.dataset.id ? downNode.dataset.id : null;
+      downNode = null;
+      if (dragMoved < 7 && hit) {
+        location.hash = `#/mountain/${hit}`;
+        return;
       }
+      lastDrag = dragMoved;
       dragMoved = 0;
     }
   };
   svg.addEventListener('pointerup', endPtr);
   svg.addEventListener('pointercancel', endPtr);
+  /* click 通道：覆盖只派发 click 的输入路径；拖动过后抑制误触 */
+  svg.addEventListener('click', (e) => {
+    if (lastDrag >= 7) { lastDrag = 0; return; }
+    const node = e.target.closest ? e.target.closest('.cm-node') : null;
+    if (node && node.dataset.id) location.hash = `#/mountain/${node.dataset.id}`;
+  });
+  /* 键盘可达：节点 role=button，Enter/空格触发 */
+  svg.addEventListener('keydown', (e) => {
+    const node = e.target.closest && e.target.closest('.cm-node');
+    if (node && node.dataset.id && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      location.hash = `#/mountain/${node.dataset.id}`;
+    }
+  });
 
   host.querySelector('.cm-ctl').addEventListener('click', (e) => {
     const b = e.target.closest('[data-z]');
