@@ -5,7 +5,7 @@
    - api/recs.json：network-first（有网拿最新看天推荐，失败读缓存）
    - 导航请求：network-first，失败回退缓存的 index.html（山里无信号也能用）
    发布新版本时递增 VERSION。 */
-const VERSION = 'shanluance-v3.10';
+const VERSION = 'shanluance-v3.11';
 const CORE_CACHE = `${VERSION}-core`;
 const IMG_CACHE = `${VERSION}-img`;
 const API_CACHE = `${VERSION}-api`;
@@ -16,6 +16,7 @@ const CORE_ASSETS = [
   'css/style.css',
   'js/data.js',
   'js/photos.js',
+  'js/lqip.js',
   'js/app.js',
   'manifest.json',
   'img/icon-192.png',
@@ -24,10 +25,19 @@ const CORE_ASSETS = [
   'img/apple-touch-icon.png',
 ];
 
+/* 千里江山图四张卷首/局部切片，预热后离线也有画看 */
+const PAINTING_ASSETS = [
+  'img/hero-qianli.webp',
+  'img/rec-qianli.webp',
+  'img/climb-qianli.webp',
+  'img/me-qianli.webp',
+];
+
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CORE_CACHE)
       .then((c) => c.addAll(CORE_ASSETS))
+      .then(() => caches.open(IMG_CACHE).then((c) => c.addAll(PAINTING_ASSETS)))
       .then(() => self.skipWaiting())
   );
 });

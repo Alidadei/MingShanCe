@@ -422,12 +422,17 @@ function recMountain(id) {
   return mountainById(id);
 }
 
-/* ================= 视图：首页 ================= */
-function climbHomeCard() {
+/* ================= 步步登峰入口卡（我的页） ================= */
+function climbEntryCard() {
   const hist = state.climbHistory || [];
+  const painting = `
+      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['climb-qianli']})" aria-hidden="true"></div>
+      <img class="ct-painting" src="img/climb-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
+      <span class="ct-cap" aria-hidden="true">《千里江山图》· 卷首</span>`;
   if (!state.climb) {
     return `
     <div class="climb-teaser" role="button" tabindex="0" data-action="goto-climb">
+      ${painting}
       <div class="ct-txt"><b>🧗 步步登峰</b><small>${hist.length ? `已云端登顶 ${hist.length} 座 · 去下一座！` : '把每天爬的楼梯，变成登顶名山的旅程'}</small></div>
       <span class="btn btn-primary">开启</span>
     </div>`;
@@ -438,6 +443,7 @@ function climbHomeCard() {
   const pct = Math.round(info.frac * 100);
   return `
   <div class="climb-teaser on" role="button" tabindex="0" data-action="goto-climb">
+    ${painting}
     <div class="ct-txt">
       <div class="ct-top"><b>${ch.emoji} 正在攀登 ${ch.name}</b><span class="climb-pct">${pct}%</span></div>
       <div class="ct-bar"><i style="width:${pct}%"></i></div>
@@ -471,8 +477,6 @@ function viewHome() {
       </div>
     </div>
   </div>
-
-  ${climbHomeCard()}
 
   <div class="section-title">
     ${remoteRecs ? `今日精选 <small>📡 GitHub 推荐引擎 · ${esc(remoteRecs.forDate)} 更新${remoteRecs.weatherEnabled ? ' · 看天推荐' : ''}</small>` : `为你推荐 <small>风景评分最高</small>`}
@@ -776,6 +780,8 @@ function viewProfile() {
     </div>
   </div>
 
+  ${climbEntryCard()}
+
   <div class="section-title">成就徽章 <small>${unlocked.size}/${ACHIEVEMENTS.length} 已解锁</small></div>
   <div class="ach-list">
     ${ACHIEVEMENTS.map((a) => `
@@ -812,7 +818,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.3 · 步步登峰 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.11 · 数据仅保存在本机</div>
   `;
 }
 
