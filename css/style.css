@@ -312,6 +312,12 @@ ul { list-style: none; }
   object-fit: cover;
   object-position: center 62%;
   filter: saturate(.96);
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+.hero .painting.loaded { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero .painting { opacity: 1; transition: none; }
 }
 .hero .hero-attribution {
   position: absolute;
