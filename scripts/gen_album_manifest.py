@@ -5,9 +5,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 albums = {}
-files = sorted((ROOT / "img").glob("*.jpg"),
+files = sorted((ROOT / "img").glob("*.webp"),
                key=lambda f: (0 if "-" not in f.stem else 1, f.stem))  # 主图优先
 for f in files:
+    if "qianli" in f.stem:
+        continue  # 千里江山图横幅不属于山峰相册
     mid = f.stem.rsplit("-", 1)[0]
     albums.setdefault(mid, []).append(f"img/{f.name}")
 

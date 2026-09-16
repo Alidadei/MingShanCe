@@ -270,7 +270,7 @@ function inkMini(seal = '山') {
 
 /* 实景照片：加载失败自动移除，露出下层 SVG 山景兜底 */
 const photoTag = (m) =>
-  `<img class="photo" src="img/${m.id}.jpg" alt="${esc(m.name)}实景" loading="lazy" onerror="this.remove()">`;
+  `<img class="photo" src="img/${m.id}.webp" alt="${esc(m.name)}实景" loading="lazy" onerror="this.remove()">`;
 
 function mountainScene(m) {
   const [skyTop, skyBottom, back, front] = m.colors;
@@ -457,11 +457,8 @@ function viewHome() {
   return `
   <div class="hero">
     <div class="scene-wrap">
-      ${mountainScene({ id: 'hero', colors: ['#1b4332', '#52b788', '#2d6a4f', '#123527'] })}
-      <picture>
-        <source type="image/webp" srcset="img/hero-qianli.webp">
-        <img class="painting" src="img/hero-qianli.jpg" alt="《千里江山图》局部" fetchpriority="high" onload="this.classList.add('loaded')" onerror="this.remove()">
-      </picture>
+      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['hero-qianli']})" aria-hidden="true"></div>
+      <img class="painting" src="img/hero-qianli.webp" alt="《千里江山图》局部" fetchpriority="high" onload="this.classList.add('loaded')" onerror="this.remove()">
       <span class="hero-attribution" aria-hidden="true">《千里江山图》· 北宋 王希孟</span>
       <div class="hero-content">
         <button type="button" class="hero-me" data-action="edit-profile" aria-label="编辑资料">
@@ -729,10 +726,8 @@ function viewRecords() {
   const list = sortedRecords();
   return `
   <div class="summary-card">
-    <picture>
-      <source type="image/webp" srcset="img/rec-qianli.webp">
-      <img class="sc-painting" src="img/rec-qianli.jpg" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
-    </picture>
+    <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['rec-qianli']})" aria-hidden="true"></div>
+    <img class="sc-painting" src="img/rec-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
     <span class="sc-attribution" aria-hidden="true">《千里江山图》· 卷末</span>
     <div class="row">
       <div>
@@ -767,10 +762,17 @@ function viewProfile() {
   const climbedCount = firstClimb.size;
   return `
   <div class="me-card" role="button" tabindex="0" aria-label="编辑资料" data-action="edit-profile" title="编辑资料">
+    <div class="me-banner">
+      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['me-qianli']})" aria-hidden="true"></div>
+      <img src="img/me-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
+      <span class="me-banner-cap" aria-hidden="true">《千里江山图》· 局部</span>
+    </div>
+    <div class="me-row">
     <div class="avatar">${avatarHtml(state.avatar)}</div>
     <div class="me-info">
       <div class="nick">${esc(state.nickname)} <span class="name-seal" title="姓名章" aria-hidden="true">${esc((state.nickname.trim()[0] || '山'))}</span> <span class="edit-hint">✏️ 编辑资料</span></div>
       <div class="motto">${esc(state.motto)} · 已同行 ${days} 天</div>
+    </div>
     </div>
   </div>
 
@@ -1623,13 +1625,15 @@ function viewClimb() {
   const last = hist[0];
   return `
   <div class="climb-head">
-    <svg class="climb-head-ink" viewBox="0 0 300 70" aria-hidden="true">
-      <g fill="#5d6e66" opacity=".22"><path d="M120,44 L160,18 L196,40 L238,12 L276,42 L300,30 L300,70 L120,70 Z"/></g>
-      <g fill="#3a4a42" opacity=".3"><path d="M150,58 L192,32 L228,54 L266,30 L300,52 L300,70 L150,70 Z"/></g>
-      <g stroke="#5d6e66" stroke-width="1" opacity=".4" stroke-linecap="round" fill="none"><path d="M170,64 h24 M182,68 h30"/></g>
-    </svg>
-    <h2>🧗 步步登峰</h2>
-    <p>把每天爬的楼梯，变成登顶名山的旅程</p>
+    <div class="climb-banner">
+      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['climb-qianli']})" aria-hidden="true"></div>
+      <img src="img/climb-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
+      <div class="climb-banner-title">
+        <h2>🧗 步步登峰</h2>
+        <p>把每天爬的楼梯，变成登顶名山的旅程</p>
+      </div>
+      <span class="climb-banner-cap" aria-hidden="true">《千里江山图》· 卷首</span>
+    </div>
   </div>
 
   <div class="chips-row" style="margin-bottom:14px">
