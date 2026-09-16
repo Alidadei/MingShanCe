@@ -1,4 +1,4 @@
-/* 山峦册 · 应用逻辑 */
+/* 名山册 · 应用逻辑 */
 'use strict';
 
 /* ================= 工具 ================= */
@@ -121,8 +121,8 @@ async function maybeAutoLocate() {
 }
 
 /* ================= 存储 ================= */
-const STORE_KEY = 'shanluance.v1';
-const LEGACY_KEYS = ['xunshance.v1', 'pashanqu.v1']; // 历史存储键，自动迁移
+const STORE_KEY = 'mingshance.v1';
+const LEGACY_KEYS = ['shanluance.v1', 'xunshance.v1', 'pashanqu.v1']; // 历史存储键，自动迁移
 
 /* 老用户数据沿迁移链自动带到新键（保留旧键以防回滚） */
 if (!localStorage.getItem(STORE_KEY)) {
@@ -471,7 +471,7 @@ function viewHome() {
           <span class="hm-ava">${avatarHtml(state.avatar)}</span>
           <span class="hm-info"><b>${esc(state.nickname)}</b><small>${greet} · 已同行 ${days} 天</small></span>
         </button>
-        <h1>山峦册</h1>
+        <h1>名山册</h1>
         <div class="slogan">会当凌绝顶，一览众山小</div>
         ${near ? `<div class="near-line">📍 离你最近：${esc(near.m.name)} · 约 ${fmtDist(near.d)}</div>` : ''}
       </div>
@@ -1066,7 +1066,7 @@ function viewProfile() {
     <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
     <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">山峦册 v3.15 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.16 · 数据仅保存在本机</div>
   `;
 }
 
@@ -1872,7 +1872,7 @@ function certSvg(h) {
     <text y="-12" text-anchor="middle" font-size="26" fill="#c0392b" font-weight="900" font-family="KaiTi, STKaiti, serif">登顶</text>
     <text y="24" text-anchor="middle" font-size="17" fill="#c0392b" font-weight="700" font-family="KaiTi, STKaiti, serif">${esc(ch.name)}</text>
   </g>
-  <text x="150" y="850" font-size="15" fill="#8ba397">山峦册 · 山灵认证</text>
+  <text x="150" y="850" font-size="15" fill="#8ba397">名山册 · 山灵认证</text>
   <text x="150" y="878" font-size="15" fill="#8ba397">凭日常脚步，抵山川之巅</text>
 </svg>`;
 }
@@ -2266,10 +2266,10 @@ function handleAction(t) {
       }
       break;
     case 'export': {
-      const blob = new Blob([JSON.stringify({ app: '山峦册', exportedAt: new Date().toISOString(), ...state }, null, 2)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify({ app: '名山册', exportedAt: new Date().toISOString(), ...state }, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `山峦册备份-${todayStr()}.json`;
+      a.download = `名山册备份-${todayStr()}.json`;
       a.click();
       URL.revokeObjectURL(a.href);
       toast('备份已导出 ⬇️');
@@ -2485,10 +2485,10 @@ function showInstallBanner(kind) {
   banner.id = 'pwa-banner';
   banner.innerHTML = kind === 'ios'
     ? `<span class="pb-icon" aria-hidden="true">📲</span>
-       <div class="pb-txt"><b>把山峦册装到桌面</b><small>点浏览器底部 <b>分享 ⬆️</b> → 选择「添加到主屏幕」，山里没信号也能用</small></div>
+       <div class="pb-txt"><b>把名山册装到桌面</b><small>点浏览器底部 <b>分享 ⬆️</b> → 选择「添加到主屏幕」，山里没信号也能用</small></div>
        <button class="pb-close" aria-label="关闭">✕</button>`
     : `<span class="pb-icon" aria-hidden="true">📲</span>
-       <div class="pb-txt"><b>安装山峦册 APP</b><small>装到桌面，全屏体验 · 离线可用</small></div>
+       <div class="pb-txt"><b>安装名山册 APP</b><small>装到桌面，全屏体验 · 离线可用</small></div>
        <button class="pb-btn" data-install>安装</button>
        <button class="pb-close" aria-label="关闭">✕</button>`;
   document.body.appendChild(banner);
@@ -2525,7 +2525,7 @@ function runSelfTest() {
     const mapLine = geo
       ? `⑤ 舆图：主图 ${CHINA_GEO.main.length} 环 · 南海 ${CHINA_GEO.south.length} 环 · 节点 ${geo.nodes.length} 座 · 画布 ${geo.w}×${geo.h}`
       : '⑤ 舆图：数据未加载';
-    box.textContent = `【山峦册自检】\n${rec}\n\n② 问"这周末去哪爬？"→\n${chatReply('这周末去哪爬？').text}\n\n③ 问"去哪爬好？"→\n${chatReply('去哪爬好？').text}\n\n④ 问候语→\n${chatGreeting()}\n\n${mapLine}`;
+    box.textContent = `【名山册自检】\n${rec}\n\n② 问"这周末去哪爬？"→\n${chatReply('这周末去哪爬？').text}\n\n③ 问"去哪爬好？"→\n${chatReply('去哪爬好？').text}\n\n④ 问候语→\n${chatGreeting()}\n\n${mapLine}`;
   };
   render();
   document.body.appendChild(box);

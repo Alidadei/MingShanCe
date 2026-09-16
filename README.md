@@ -1,4 +1,4 @@
-# 山峦册 ⛰️
+# 名山册 ⛰️
 
 **一座山峰信息的收集册。** 收录 53 座中国名山的完整档案——海拔、难度、耗时、最佳季节、登山贴士、实景相册、与你的距离，附打卡记录与虚拟登山玩法。
 
@@ -33,7 +33,7 @@
 ## 运行 / 开发
 
 ```bash
-cd shanluance
+cd mingshance
 python -m http.server 8000
 # 访问 http://localhost:8000
 ```
@@ -43,7 +43,7 @@ python -m http.server 8000
 ## 目录结构
 
 ```
-shanluance/
+mingshance/
 ├── index.html                 # 单页应用外壳
 ├── manifest.json              # PWA 清单
 ├── sw.js                      # Service Worker 离线缓存
