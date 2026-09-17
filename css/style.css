@@ -939,6 +939,7 @@ ul { list-style: none; }
   padding: 13px 20px 15px;
   background: rgba(10, 26, 19, .42);
   border-top: 1px solid rgba(250, 248, 242, .22);
+  color: #e9f1e9; /* 墨色带上必须是浅色字，否则深底深字看不见 */
   cursor: pointer;
   transition: background .2s ease;
 }

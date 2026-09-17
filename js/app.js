@@ -1044,7 +1044,7 @@ function viewProfile() {
           </div>`;
     }).join('')}
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.18 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.19 · 数据仅保存在本机</div>
   `;
 }
 
