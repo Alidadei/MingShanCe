@@ -422,44 +422,30 @@ function recMountain(id) {
   return mountainById(id);
 }
 
-/* ================= 步步登峰入口卡（我的页） ================= */
-function climbEntryCard() {
+/* ================= 步步登峰入口（嵌入「我的」资料画布卡内） ================= */
+function climbInnerHtml() {
   const hist = state.climbHistory || [];
-  const painting = `
-      <div class="painting-lqip" style="background-image:url(${PAINTING_LQIP['climb-qianli']})" aria-hidden="true"></div>
-      <img class="ct-painting" src="img/climb-qianli.webp" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">
-      <span class="ct-cap" aria-hidden="true">《千里江山图》· 卷首</span>`;
   if (!state.climb) {
     return `
-    <div class="climb-teaser" role="button" tabindex="0" data-action="goto-climb">
-      ${painting}
-      <div class="ct-txt"><b>🧗 步步登峰</b><small>${hist.length ? `已云端登顶 ${hist.length} 座 · 去下一座！` : '把每天爬的楼梯，变成登顶名山的旅程'}</small></div>
-      <span class="btn btn-primary">开启</span>
-    </div>`;
+    <div class="ct-txt"><b>🧗 步步登峰</b><small>${hist.length ? `已云端登顶 ${hist.length} 座 · 去下一座！` : '把每天爬的楼梯，变成登顶名山的旅程'}</small></div>
+    <span class="btn btn-primary">开启</span>`;
   }
   const info = climbInfo();
   if (!info) return '';
   const { ch } = info;
   const pct = Math.round(info.frac * 100);
   return `
-  <div class="climb-teaser on" role="button" tabindex="0" data-action="goto-climb">
-    ${painting}
-    <div class="ct-txt">
-      <div class="ct-top"><b>${ch.emoji} 正在攀登 ${ch.name}</b><span class="climb-pct">${pct}%</span></div>
-      <div class="ct-bar"><i style="width:${pct}%"></i></div>
-      <small>已爬升 ${fmtNum(info.climbed)}m / ${fmtNum(ch.elevation)}m · 当前：${info.pos ? info.pos.name : '山脚'}${info.next ? ` → ${info.next.name}` : ''}</small>
-    </div>
+  <div class="ct-txt">
+    <div class="ct-top"><b>${ch.emoji} 正在攀登 ${ch.name}</b><span class="climb-pct">${pct}%</span></div>
+    <div class="ct-bar"><i style="width:${pct}%"></i></div>
+    <small>已爬升 ${fmtNum(info.climbed)}m / ${fmtNum(ch.elevation)}m · 当前：${info.pos ? info.pos.name : '山脚'}${info.next ? ` → ${info.next.name}` : ''}</small>
   </div>`;
 }
 
 function viewHome() {
   const s = computeStats();
-  const near = nearestMountain();
   const featured = [...MOUNTAINS].sort((a, b) => b.scenery - a.scenery).slice(0, 6);
   const themes = ['看日出', '夜爬', '云海', '红叶', '高山草甸', '佛教名山', '道教名山', '五岳'];
-  const h = new Date().getHours();
-  const greet = h < 6 ? '夜深了' : h < 11 ? '早上好' : h < 14 ? '中午好' : h < 18 ? '下午好' : '晚上好';
-  const days = Math.max(1, Math.ceil((Date.now() - (state.joinedAt || Date.now())) / 864e5));
   return `
   <div class="hero">
     <div class="scene-wrap">
@@ -467,13 +453,8 @@ function viewHome() {
       <img class="painting" src="${HERO_PAINTING_INLINE}" alt="《千里江山图》局部" onload="this.classList.add('loaded')">
       <span class="hero-attribution" aria-hidden="true">《千里江山图》· 北宋 王希孟</span>
       <div class="hero-content">
-        <button type="button" class="hero-me" data-action="edit-profile" aria-label="编辑资料">
-          <span class="hm-ava">${avatarHtml(state.avatar)}</span>
-          <span class="hm-info"><b>${esc(state.nickname)}</b><small>${greet} · 已同行 ${days} 天</small></span>
-        </button>
         <h1>名山册</h1>
         <div class="slogan">会当凌绝顶，一览众山小</div>
-        ${near ? `<div class="near-line">📍 离你最近：${esc(near.m.name)} · 约 ${fmtDist(near.d)}</div>` : ''}
       </div>
     </div>
   </div>
@@ -985,10 +966,6 @@ function viewRecords() {
         <h2>我的登山手账</h2>
         <div class="sub">${esc(state.nickname)} · 每一步都算数</div>
       </div>
-      <div style="display:flex;gap:8px;flex-shrink:0">
-        <button class="btn btn-ghost" data-action="import-gpx" title="导入两步路/绿野游踪等 App 导出的 GPX 轨迹">📥 GPX</button>
-        <button class="btn btn-primary" data-action="checkin" style="padding:9px 16px">＋ 打卡</button>
-      </div>
     </div>
     <div class="summary-grid">
       <div class="sg"><b>${s.count}</b><span>打卡次数</span></div>
@@ -1022,13 +999,22 @@ function viewProfile() {
     <div class="me-row">
     <div class="avatar">${avatarHtml(state.avatar)}</div>
     <div class="me-info">
-      <div class="nick">${esc(state.nickname)} <span class="name-seal" title="姓名章" aria-hidden="true">${esc((state.nickname.trim()[0] || '山'))}</span> <span class="edit-hint">✏️ 编辑资料</span></div>
+      <div class="nick">${esc(state.nickname)}</div>
       <div class="motto">${esc(state.motto)} · 已同行 ${days} 天</div>
     </div>
     </div>
+    <div class="me-climb" role="button" tabindex="0" data-action="goto-climb" aria-label="步步登峰">
+      ${climbInnerHtml()}
+    </div>
   </div>
 
-  ${climbEntryCard()}
+  <div class="section-title">数据管理 <small>资料与记录永久保留在本机</small></div>
+  <div class="data-zone">
+    <button class="btn btn-ghost" data-action="export">⬇️ 导出备份</button>
+    <button class="btn btn-ghost" data-action="import">⬆️ 导入恢复</button>
+    <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
+    <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
+  </div>
 
   <div class="section-title">成就徽章 <small>${unlocked.size}/${ACHIEVEMENTS.length} 已解锁</small></div>
   <div class="ach-list">
@@ -1058,15 +1044,7 @@ function viewProfile() {
           </div>`;
     }).join('')}
   </div>
-
-  <div class="section-title">数据管理 <small>资料与记录永久保留在本机</small></div>
-  <div class="data-zone">
-    <button class="btn btn-ghost" data-action="export">⬇️ 导出备份</button>
-    <button class="btn btn-ghost" data-action="import">⬆️ 导入恢复</button>
-    <button class="btn btn-ghost" data-action="import-gpx">📥 导入 GPX 轨迹</button>
-    <button class="btn btn-danger-ghost" data-action="clear">🗑️ 清空记录</button>
-  </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.17 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.18 · 数据仅保存在本机</div>
   `;
 }
 
