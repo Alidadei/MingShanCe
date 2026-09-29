@@ -175,11 +175,6 @@ def seed_rand(seed: str) -> float:
     return (h % 10000) / 10000
 
 
-def first_sentence(desc: str, limit: int = 42) -> str:
-    s = desc.split("。")[0]
-    return s[:limit] + "…" if len(s) > limit else s
-
-
 def next_saturday(today: date) -> date:
     return today + timedelta(days=(5 - today.weekday()) % 7)
 
@@ -291,7 +286,7 @@ def generate():
         if holiday:
             if m["id"] in CROWD_HOT:
                 c_score = -5
-                c_reason = f"{holiday_note}，人从众预警，建议错峰"
+                c_reason = f"{holiday_note}，往年此时人从众（经验预判），建议错峰"
             else:
                 c_score = 3
                 c_reason = f"{holiday_note}，它是不错的错峰选择"
@@ -317,19 +312,22 @@ def generate():
         elif w_reason and w_score < 0:
             s_reason = w_reason
         elif hit_tags:
-            s_reason = f"「{hit_tags[0]}」热度持续在线，风景评分 {m['scenery']}"
+            s_reason = f"「{hit_tags[0]}」正是这个时节的看点，风景评分 {m['scenery']}"
         else:
             s_reason = f"四季皆宜的经典之选，风景评分 {m['scenery']}"
         seasonal.append(card(m, s_reason, s_score, w))
 
-        # ---- 本周热门（周号轮换 + 天气加成）----
+        # ---- 本周精选（周号轮换 + 周末好天加权；理由只用真实信号，不虚构热度）----
         heat = seed_rand(m["id"] + "-w" + str(iso_week))
         t_score = base + heat * 3 + (m["elevation"] / 10000) + max(0, w_score)
-        pct = 15 + int(heat * 40)
-        hot_tag = hit_tags[0] if hit_tags else (m["tags"][0] if m["tags"] else "户外")
-        t_reason = f"本周热度上升 {pct}%，{hot_tag}主题搜索量激增"
         if w and w["prob"] <= 30:
-            t_reason += f"；周末{w['short']}，正适合出发"
+            t_reason = f"周末{w['short']}，降水概率仅 {w['prob']}%"
+        elif in_season and hit_tags:
+            t_reason = f"{month} 月{hit_tags[0]}正当时，风景评分 {m['scenery']}"
+        elif in_season:
+            t_reason = f"{month} 月是它的黄金季节，风景评分 {m['scenery']}"
+        else:
+            t_reason = f"本周轮换入选，风景评分 {m['scenery']}"
         trending.append(card(m, t_reason, t_score, w))
 
         # ---- 周末就出发（两天线偏好 + 好天优先）----
@@ -348,15 +346,8 @@ def generate():
     trending.sort(key=lambda x: -x["score"])
     weekend_picks.sort(key=lambda x: -x["score"])
 
-    # 编辑精选：高分山轮换，理由用介绍首句
-    rated = sorted(mountains, key=lambda m: -m["scenery"])[:8]
-    start = iso_week % len(rated)
-    editors = []
-    for m in [rated[(start + i) % len(rated)] for i in range(3)]:
-        editors.append(card(m, first_sentence(m["description"]), m["scenery"] * 3))
-
     recs = {
-        "version": 2,
+        "version": 3,
         "generatedAt": now_cn.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
         "forDate": today.isoformat(),
         "week": iso_week,
@@ -367,7 +358,6 @@ def generate():
         "seasonal": seasonal[:5],
         "trending": trending[:5],
         "weekend": weekend_picks[:4],
-        "editors": editors,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(recs, ensure_ascii=False, indent=2), encoding="utf-8")
