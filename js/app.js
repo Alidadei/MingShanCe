@@ -467,7 +467,7 @@ function viewHome() {
         const m = recMountain(r.id);
         return m ? mountainMini(m, r.reason, s.ids.has(r.id)) : '';
       }).join('')}</div>
-    <div class="section-title">当季最佳 <small>${remoteRecs.week} 周 · 季节与热度评分</small></div>
+    <div class="section-title">当季最佳 <small>${remoteRecs.week} 周 · 季节与天气加权</small></div>
     <div class="chips-row">
       ${remoteRecs.seasonal.map((r) => `<button type="button" class="chip" data-action="open-mountain" data-id="${r.id}" title="${esc(r.reason)}">${r.emoji} ${esc(r.name)}</button>`).join('')}
     </div>
@@ -479,7 +479,7 @@ function viewHome() {
     }).join('')}</div>` : ''}`
     : `<div class="h-scroll">${featured.map((m) => mountainMini(m)).join('')}</div>`}
 
-  <div class="section-title">热门主题 <small>点击直达</small></div>
+  <div class="section-title">主题筛选 <small>点击直达</small></div>
   <div class="chips-row">
     ${themes.map((t) => `<button type="button" class="chip" data-action="theme" data-tag="${esc(t)}"># ${esc(t)}</button>`).join('')}
   </div>
@@ -574,7 +574,7 @@ function viewExplore() {
   <div class="filter-label" style="display:flex;justify-content:space-between;align-items:center">
     <span>排序</span>
     <select id="explore-sort" class="control" style="width:auto;padding:5px 10px;font-size:12.5px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);outline:none">
-      <option value="hot" ${exploreState.sort === 'hot' ? 'selected' : ''}>人气推荐</option>
+      <option value="hot" ${exploreState.sort === 'hot' ? 'selected' : ''}>风景优先</option>
       <option value="elev" ${exploreState.sort === 'elev' ? 'selected' : ''}>海拔最高</option>
       <option value="easy" ${exploreState.sort === 'easy' ? 'selected' : ''}>难度最低</option>
       <option value="near" ${exploreState.sort === 'near' ? 'selected' : ''}>离我最近 📍</option>
@@ -1416,12 +1416,12 @@ function chatReply(text) {
     : intent.easy ? '轻松休闲的路线，我帮你挑了这几座：'
     : intent.hard ? '想来点硬核的？这几座够你喝一壶：'
     : intent.near ? '按离你的距离，这几座最方便：'
-    : wfy ? '看了眼今天的天气和各山热度，我推荐这几座：'
+    : wfy ? '看了眼今天的天气和各山当季情况，我推荐这几座：'
     : '根据你的口味，我推荐这几座：';
   const detail = picks.map((p, i) =>
     `${i + 1}. ${p.m.emoji} ${p.m.name}（${p.m.province}）\n${p.reasons.map((r) => `   · ${r}`).join('\n')}`
   ).join('\n');
-  const src = remoteRecs ? `\n\n📡 已结合推荐引擎 ${remoteRecs.forDate} 的看天与热度数据` : '';
+  const src = remoteRecs ? `\n\n📡 已结合推荐引擎 ${remoteRecs.forDate} 的看天推荐数据` : '';
   return {
     text: `${intro}\n\n${detail}${src}\n\n点击卡片可看路线详情，也可以直接问我“XX山怎么爬”。`,
     cards: picks.map((p) => p.m.id),

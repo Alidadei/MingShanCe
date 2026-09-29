@@ -327,7 +327,7 @@ def generate():
         elif in_season:
             t_reason = f"{month} 月是它的黄金季节，风景评分 {m['scenery']}"
         else:
-            t_reason = f"本周轮换入选，风景评分 {m['scenery']}"
+            t_reason = f"本周轮换入选 · 难度{DIFF_LABELS[m['difficulty']]} · 风景评分 {m['scenery']}"
         trending.append(card(m, t_reason, t_score, w))
 
         # ---- 周末就出发（两天线偏好 + 好天优先）----
@@ -364,7 +364,7 @@ def generate():
     print(
         f"[ok] 已生成 {OUT.relative_to(ROOT)}（{today} 第 {iso_week} 周，"
         f"周末={weekend}，天气={'开' if weather else '关'}，假期={holiday_note or '无'}，"
-        f"{len(seasonal)} 当季 / {len(trending)} 热门 / {len(weekend_picks)} 周末）"
+        f"{len(seasonal)} 当季 / {len(trending)} 精选 / {len(weekend_picks)} 周末）"
     )
 
 
