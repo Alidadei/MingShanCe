@@ -148,6 +148,9 @@ const PHOTO_ALBUMS = {
     "img/maluanshan-3.webp",
     "img/maluanshan-4.webp"
   ],
+  "maoershan": [
+    "img/maoershan.webp"
+  ],
   "moganshan": [
     "img/moganshan.webp",
     "img/moganshan-2.webp",

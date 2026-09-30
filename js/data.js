@@ -1295,3 +1295,57 @@ const CHALLENGES = [
     ],
   },
 ];
+
+/* ================= 详情页增强数据（app.js 启动时合并进 MOUNTAINS） =================
+   peak：主峰名与高程；heritage：UNESCO 名录（世界遗产/世界地质公园）；
+   reviews：驴友真实评价——逐字引用原文并附可打开的出处链接，未核验的不录。 */
+const ENRICH = {
+  taishan: { peak: '玉皇顶 1532.7m', heritage: '世界文化与自然双重遗产（1987）' },
+  huashan: {
+    peak: '南峰 2154.9m',
+    reviews: [
+      { t: '体验感：直通天庭，内质清高，上合太虚。', who: '游记作者 飞行的书卷', s: '知乎专栏《华山第一险长空栈道自由行攻略》', u: 'https://zhuanlan.zhihu.com/p/1932092517299492740' },
+      { t: '许多游客都不听劝告，可是到了长空栈道的中间却后悔了，吓得浑身哆嗦，不敢再往前走一步。', who: '旅游自媒体', s: '网易《去华山旅游，不要随便体验长空栈道，老导游：不听劝的大多后悔了》', u: 'https://www.163.com/dy/article/E1V9HJUK05444UO5.html' },
+    ],
+  },
+  huangshan: { peak: '莲花峰 1864.8m', heritage: '世界文化与自然双重遗产（1990）' },
+  emeishan: { peak: '万佛顶 3099m', heritage: '世界文化与自然双重遗产（1996，峨眉山-乐山大佛）' },
+  wugongshan: {
+    heritage: '世界地质公园（2019）',
+    reviews: [
+      { t: '武功山以10万亩高山草甸为天然舞台……为"云中草原、户外天堂"注入鲜活未来感。', who: '江西日报报道', s: '人民网《武功山第十八届帐篷季何以吸引八方游客？》', u: 'http://jx.people.com.cn/n2/2025/0923/c186330-41360345.html' },
+    ],
+  },
+  xiangshan: { peak: '香炉峰 575m' },
+  baiyunshan: { peak: '摩星岭 382m' },
+  qingchengshan: { peak: '老君阁 1260m', heritage: '世界文化遗产（2000，青城山-都江堰）' },
+  lushan: { peak: '汉阳峰 1474m', heritage: '世界文化景观遗产（1996）' },
+  siguniangshan: { peak: '幺妹峰 6250m', heritage: '世界自然遗产（2006，四川大熊猫栖息地）' },
+  hengshan_n: { peak: '天峰岭 2016.1m' },
+  hengshan_s: { peak: '祝融峰 1300.2m' },
+  songshan: { peak: '连天峰 1512m', heritage: '世界文化遗产（2010，登封"天地之中"历史建筑群）' },
+  changbaishan: { peak: '白云峰 2691m' },
+  qianshan: { peak: '仙人台 708.3m' },
+  wutaishan: { peak: '北台叶斗峰 3061.1m', heritage: '世界文化景观遗产（2009）' },
+  xiaowutaishan: { peak: '东台 2882m' },
+  lingshan: { peak: '东灵山主峰 2303m' },
+  maijishan: { heritage: '世界文化遗产（2014，丝绸之路：长安-天山廊道的路网）' },
+  helanshan: { peak: '敖包疙瘩 3556m' },
+  wudangshan: { peak: '天柱峰 1612m', heritage: '世界文化遗产（1994）' },
+  shennongjia: { peak: '神农顶 3106.2m', heritage: '世界自然遗产（2016）' },
+  laojunshan: { peak: '玉皇顶 2217m' },
+  yuntaishan: { peak: '茱萸峰 1297.6m', heritage: '世界地质公园（2004，全球首批）' },
+  yandangshan: { peak: '百岗尖 1056.6m', heritage: '世界地质公园（2005）' },
+  tianmushan: { peak: '仙人顶 1506m' },
+  moganshan: { peak: '塔山 724m' },
+  laoshan: { peak: '巨峰 1132.7m' },
+  sanqingshan: { peak: '玉京峰 1819.9m', heritage: '世界自然遗产（2008）' },
+  jinggangshan: { peak: '南风面 2120.4m' },
+  longhushan: { heritage: '世界自然遗产（2010，中国丹霞）' },
+  danxiashan: { peak: '巴寨 619.2m', heritage: '世界自然遗产（2010，中国丹霞）' },
+  fanjingshan: { peak: '凤凰山 2572m', heritage: '世界自然遗产（2018）' },
+  jinfoshan: { heritage: '世界自然遗产（2014，中国南方喀斯特）' },
+  cangshan: { peak: '马龙峰 4122m', heritage: '世界地质公园（2014）' },
+  jizushan: { peak: '天柱峰 3248m' },
+  wutongshan: { peak: '大梧桐 943.7m' },
+};

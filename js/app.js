@@ -9,6 +9,14 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
+/* 详情页增强数据（主峰/UNESCO 名录/驴友真实评价）：定义在 data.js 的 ENRICH，合并进 MOUNTAINS */
+if (typeof ENRICH !== 'undefined') {
+  for (const [id, extra] of Object.entries(ENRICH)) {
+    const m = MOUNTAINS.find((x) => x.id === id);
+    if (m) Object.assign(m, extra);
+  }
+}
+
 function hashStr(str) {
   let h = 1779033703 ^ str.length;
   for (let i = 0; i < str.length; i++) {
@@ -636,12 +644,11 @@ function albumStep(d) {
   renderAlbumFrame();
 }
 
+/* 只保留实测可直接打开、无需注册的入口（大众点评需登录、六只脚/两步路已失效，均移除） */
 const REVIEWS_LINKS = [
-  { name: '大众点评', emoji: '🥇', url: (n) => `https://www.dianping.com/search/keyword/1/0_${encodeURIComponent(n)}` },
-  { name: '马蜂窝攻略', emoji: '🧭', url: (n) => `https://www.mafengwo.cn/search/q.php?q=${encodeURIComponent(n)}` },
-  { name: '六只脚轨迹', emoji: '🥾', url: (n) => `https://www.foooooot.com/search/trip/?keyword=${encodeURIComponent(n)}` },
-  { name: '两步路线路', emoji: '🗺️', url: (n) => `https://www.2bulu.com/road/search.htm?keyword=${encodeURIComponent(n)}` },
-  { name: '百度百科', emoji: '📖', url: (n) => `https://baike.baidu.com/item/${encodeURIComponent(n)}` },
+  { name: '马蜂窝攻略', emoji: '🧭', desc: '游记与真实攻略', url: (n) => `https://www.mafengwo.cn/search/q.php?q=${encodeURIComponent(n)}` },
+  { name: 'B站实拍', emoji: '📺', desc: '徒步 vlog 与真实记录', url: (n) => `https://search.bilibili.com/all?keyword=${encodeURIComponent(n + ' 徒步')}` },
+  { name: '百度百科', emoji: '📖', desc: '地理与背景知识', url: (n) => `https://baike.baidu.com/item/${encodeURIComponent(n)}` },
 ];
 
 /* ================= 视图：详情 ================= */
@@ -692,7 +699,18 @@ function viewMountain(m) {
     <h3><span class="ico">📝</span>山峰介绍</h3>
     <p>${esc(m.description)}</p>
     <p class="kv" style="margin-top:10px"><b>最佳季节</b>${esc(m.bestSeason)}　<b>风景评分</b><span class="stars">${starRow(5)}</span> ${m.scenery.toFixed(1)}</p>
+    ${m.peak || m.heritage ? `<p class="kv" style="margin-top:6px">${m.peak ? `<b>主峰</b>${esc(m.peak)}` : ''}${m.peak && m.heritage ? '　' : ''}${m.heritage ? `<b>名录</b>${esc(m.heritage)}` : ''}</p>` : ''}
   </div>
+
+  ${Array.isArray(m.reviews) && m.reviews.length ? `
+  <div class="d-section">
+    <h3><span class="ico">💬</span>驴友说 <small style="font-weight:400;color:var(--ink-3)">真实评价 · 逐字引用 · 点击出处读原文</small></h3>
+    ${m.reviews.map((r) => `
+    <blockquote class="review-quote">
+      <p>${esc(r.t)}</p>
+      <footer>—— ${esc(r.who || '驴友')} · <a href="${r.u}" target="_blank" rel="noopener noreferrer">${esc(r.s)} ↗</a></footer>
+    </blockquote>`).join('')}
+  </div>` : ''}
 
   ${albumList(m).length ? `
   <div class="d-section">
@@ -705,13 +723,30 @@ function viewMountain(m) {
     </div>
   </div>` : ''}
 
+  ${COORDS[m.id] ? `
   <div class="d-section">
-    <h3><span class="ico">💬</span>驴友视角 <small style="font-weight:400;color:var(--ink-3)">去测评平台看真实口碑</small></h3>
+    <h3><span class="ico">🗺️</span>地图位置 <small style="font-weight:400;color:var(--ink-3)">点击跳转地图查看坐标，可直接导航</small></h3>
+    <div class="review-links">
+      <a class="review-link" href="https://uri.amap.com/marker?position=${COORDS[m.id][1]},${COORDS[m.id][0]}&name=${encodeURIComponent(m.name)}&src=pashanqu&callnative=0" target="_blank" rel="noopener noreferrer">
+        <span class="rl-emoji" aria-hidden="true">🧭</span>
+        <span class="rl-txt"><b>高德地图</b><small>查看${esc(m.name)}位置与周边</small></span>
+        <span class="rl-go" aria-hidden="true">↗</span>
+      </a>
+      <a class="review-link" href="https://apis.map.qq.com/uri/v1/marker?marker=coord:${COORDS[m.id][0]},${COORDS[m.id][1]};title=${encodeURIComponent(m.name)};addr=${encodeURIComponent(m.province)}&referer=pashanqu" target="_blank" rel="noopener noreferrer">
+        <span class="rl-emoji" aria-hidden="true">📍</span>
+        <span class="rl-txt"><b>腾讯地图</b><small>备用入口 · 打开即定位</small></span>
+        <span class="rl-go" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>` : ''}
+
+  <div class="d-section">
+    <h3><span class="ico">💬</span>驴友视角 <small style="font-weight:400;color:var(--ink-3)">去这些平台看真实口碑</small></h3>
     <div class="review-links">
       ${REVIEWS_LINKS.map((l) => `
       <a class="review-link" href="${l.url(m.name)}" target="_blank" rel="noopener noreferrer">
         <span class="rl-emoji" aria-hidden="true">${l.emoji}</span>
-        <span class="rl-txt"><b>${l.name}</b><small>真实评价与攻略</small></span>
+        <span class="rl-txt"><b>${l.name}</b><small>${l.desc}</small></span>
         <span class="rl-go" aria-hidden="true">↗</span>
       </a>`).join('')}
     </div>
