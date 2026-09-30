@@ -704,11 +704,11 @@ function viewMountain(m) {
 
   ${Array.isArray(m.reviews) && m.reviews.length ? `
   <div class="d-section">
-    <h3><span class="ico">💬</span>驴友说 <small style="font-weight:400;color:var(--ink-3)">真实评价 · 逐字引用 · 点击出处读原文</small></h3>
+    <h3><span class="ico">💬</span>驴友说 <small style="font-weight:400;color:var(--ink-3)">真实评价 · 逐字引用 · 附日期与出处</small></h3>
     ${m.reviews.map((r) => `
     <blockquote class="review-quote">
       <p>${esc(r.t)}</p>
-      <footer>—— ${esc(r.who || '驴友')} · <a href="${r.u}" target="_blank" rel="noopener noreferrer">${esc(r.s)} ↗</a></footer>
+      <footer>—— ${esc(r.who || '驴友')}${r.d ? ` · ${esc(r.d)}` : ''} · <a href="${r.u}" target="_blank" rel="noopener noreferrer">${esc(r.s)} ↗</a></footer>
     </blockquote>`).join('')}
   </div>` : ''}
 
@@ -727,6 +727,11 @@ function viewMountain(m) {
   <div class="d-section">
     <h3><span class="ico">🗺️</span>地图位置 <small style="font-weight:400;color:var(--ink-3)">点击跳转地图查看坐标，可直接导航</small></h3>
     <div class="review-links">
+      <a class="review-link" href="#/records?focus=${m.id}">
+        <span class="rl-emoji" aria-hidden="true">🏞️</span>
+        <span class="rl-txt"><b>江山舆图</b><small>在本站舆图上定位${esc(m.name)}并标黄</small></span>
+        <span class="rl-go" aria-hidden="true">→</span>
+      </a>
       <a class="review-link" href="https://uri.amap.com/marker?position=${COORDS[m.id][1]},${COORDS[m.id][0]}&name=${encodeURIComponent(m.name)}&src=pashanqu&callnative=0" target="_blank" rel="noopener noreferrer">
         <span class="rl-emoji" aria-hidden="true">🧭</span>
         <span class="rl-txt"><b>高德地图</b><small>查看${esc(m.name)}位置与周边</small></span>
@@ -829,6 +834,8 @@ function mountChinaMap() {
   const data = buildChinaMap();
   if (!data) { host.innerHTML = '<div class="map-fallback">舆图数据未加载，稍后刷新再试</div>'; return; }
   const climbed = computeStats().ids;
+  /* 详情页「江山舆图」入口带 ?focus=山id：定位到该山并标黄 */
+  const focusId = (location.hash.match(/[?&]focus=([\w-]+)/) || [])[1] || null;
 
   host.innerHTML = `
   <svg id="cm-svg" viewBox="0 0 ${data.w} ${data.h}" preserveAspectRatio="xMidYMid meet" role="group" aria-label="中国山峰舆图：按真实地理位置标注 ${data.nodes.length} 座山峰">
@@ -841,11 +848,12 @@ function mountChinaMap() {
       </g>
       <g class="cm-nodes">${data.nodes.map((n) => {
         const on = climbed.has(n.id);
-        return `<g class="cm-node ${on ? 'on' : ''}" data-id="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}，海拔 ${fmtNum(n.elev)} 米${on ? '，已登顶' : ''}">
+        const fc = n.id === focusId;
+        return `<g class="cm-node ${on ? 'on' : ''} ${fc ? 'focus' : ''}" data-id="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}，海拔 ${fmtNum(n.elev)} 米${on ? '，已登顶' : ''}${fc ? '，当前查看' : ''}">
           <circle class="cm-halo" cx="${n.x}" cy="${n.y}" r="1.5"/>
           <circle class="cm-dot" cx="${n.x}" cy="${n.y}" r="0.45" vector-effect="non-scaling-stroke"/>
           <text class="cm-lab" x="${n.x + 0.7}" y="${n.y + 0.4}">${esc(n.name)}</text>
-          <title>${esc(n.name)} · ${fmtNum(n.elev)}米${on ? ' · 已登顶 ✓' : ''}</title>
+          <title>${esc(n.name)} · ${fmtNum(n.elev)}米${on ? ' · 已登顶 ✓' : ''}${fc ? ' · 当前查看' : ''}</title>
         </g>`;
       }).join('')}</g>
     </g>
@@ -855,7 +863,7 @@ function mountChinaMap() {
     <button type="button" data-z="out" aria-label="缩小">－</button>
     <button type="button" data-z="fit" aria-label="复位">⌂</button>
   </div>
-  <div class="cm-legend"><span><i class="lg-on"></i>已登顶</span><span><i class="lg-off"></i>待登顶</span></div>
+  <div class="cm-legend"><span><i class="lg-on"></i>已登顶</span><span><i class="lg-off"></i>待登顶</span>${focusId ? '<span><i class="lg-focus"></i>当前查看</span>' : ''}</div>
   <div class="cm-cap" aria-hidden="true">底图边界仅示意 · 千里江山 舆图载之</div>`;
 
   const svg = $('#cm-svg');
@@ -983,6 +991,17 @@ function mountChinaMap() {
     }
     zoomAt(view.x + view.w / 2, view.y + view.h / 2, b.dataset.z === 'in' ? 0.7 : 1.43);
   });
+
+  /* 带 focus 进入：居中放大到目标山峰（⌂ 复位可回到全图） */
+  if (focusId) {
+    const fn = data.nodes.find((x) => x.id === focusId);
+    if (fn) {
+      view.w = BASE.w * 0.3; view.h = BASE.h * 0.3;
+      view.x = fn.x - view.w / 2;
+      view.y = fn.y - view.h / 2;
+      clamp(); apply();
+    }
+  }
 
   apply();
 }

@@ -1698,6 +1698,22 @@ svg.zoomed .cm-lab { opacity: 1; }
 .cm-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .lg-on { background: var(--cinnabar); border: 1.5px solid #fbf6ea; box-shadow: 0 0 0 1px var(--cinnabar); }
 .lg-off { background: #fdfbf4; border: 1.5px solid var(--pine); }
+/* 详情页跳转进入：目标山峰标黄（雌黄）+ 呼吸光圈 */
+.cm-node.focus .cm-dot { fill: #d9a514; stroke: #fbf6ea; }
+.cm-node.focus .cm-halo {
+  fill: rgba(217, 165, 20, .30);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cmPulse 1.6s ease-out infinite;
+}
+.cm-node.focus:hover .cm-halo { fill: rgba(217, 165, 20, .30); }
+.cm-node.focus .cm-lab { opacity: 1; fill: #7a5c10; }
+@keyframes cmPulse {
+  0% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(2.1); opacity: 0; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.lg-focus { background: #d9a514; border: 1.5px solid #fbf6ea; box-shadow: 0 0 0 1px #d9a514; }
 .cm-cap {
   position: absolute;
   right: 12px;
