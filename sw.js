@@ -5,7 +5,7 @@
    - api/recs.json：network-first（有网拿最新看天推荐，失败读缓存）
    - 导航请求：network-first，失败回退缓存的 index.html（山里无信号也能用）
    发布新版本时递增 VERSION。 */
-const VERSION = 'mingshance-v3.23';
+const VERSION = 'mingshance-v3.25';
 const CORE_CACHE = `${VERSION}-core`;
 const IMG_CACHE = `${VERSION}-img`;
 const API_CACHE = `${VERSION}-api`;
@@ -51,6 +51,15 @@ self.addEventListener('activate', (e) => {
       ))
       .then(() => self.clients.claim())
   );
+});
+
+/* 页面 ⇄ SW 通信：查询运行版本 / 手动放行更新（配合「检查更新」按钮） */
+self.addEventListener('message', (e) => {
+  if (e.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  } else if (e.data && e.data.type === 'GET_VERSION' && e.source) {
+    e.source.postMessage({ type: 'VERSION', version: VERSION });
+  }
 });
 
 self.addEventListener('fetch', (e) => {

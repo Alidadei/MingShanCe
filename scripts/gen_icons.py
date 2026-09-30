@@ -1,61 +1,81 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""生成 PWA 图标：宣纸底 + 朱砂印章「巡」字（与 UI 品牌一致）。"""
-from PIL import Image, ImageDraw, ImageFont
-from pathlib import Path
+"""重绘应用图标：千里江山图一角——绢本底 + 石青石绿层峦 + 金色日轮。
+输出：img/icon-192.png / icon-512.png（圆角 any）、icon-maskable-512.png（全出血）、
+     apple-touch-icon.png（180 全出血，iOS 自行裁角）。4x 超采样抗锯齿。"""
+from PIL import Image, ImageDraw, ImageFilter
 
-IMG = Path(__file__).resolve().parent.parent / "img"
-IMG.mkdir(exist_ok=True)
+S = 4  # 超采样倍数
 
-PAPER = (250, 248, 242)      # 宣纸
-CINNABAR = (184, 68, 44)     # 朱砂
-CINNABAR_DEEP = (150, 53, 29)
-INK = (34, 50, 43)
+SILK = (243, 238, 221, 255)        # 绢本
+SILK_HI = (250, 246, 233, 255)     # 绢本高光（上缘）
+AZURE = (46, 111, 130, 255)        # 石青（远山）
+PINE_SOFT = (61, 133, 115, 255)    # 石绿（中景）
+PINE_DEEP = (20, 63, 54, 255)      # 深石绿（近坡）
+GOLD = (217, 165, 20, 255)         # 日轮
+BORDER = (176, 139, 62, 255)       # 金边
 
-FONT = "C:/Windows/Fonts/simkai.ttf"
+# 三层山：-(中心u, 峰顶u(离顶), 半宽u)，前层后画
+LAYERS = [
+    ((0.34, 0.30, 0.30), AZURE),
+    ((0.66, 0.46, 0.36), PINE_SOFT),
+    ((0.42, 0.68, 0.55), PINE_DEEP),
+]
 
 
-def make_icon(size: int, maskable: bool = False) -> Image.Image:
-    img = Image.new("RGB", (size, size), PAPER)
+def draw_scene(d, size, inset):
+    W = H = size
+    m = inset * W
+    cw = W - 2 * m
+
+    def px(u):
+        return m + u * cw
+
+    # 日轮（右上，收在 maskable 40% 安全区内）
+    sr = 0.06 * cw
+    c = (px(0.72), px(0.20))
+    d.ellipse([c[0] - sr, c[1] - sr, c[0] + sr, c[1] + sr], fill=GOLD)
+
+    # 层峦：钟形山脊（峰顶平滑、坡面抛物线）
+    N = 180
+    for (cx, apex, hw), color in LAYERS:
+        pts = []
+        for i in range(N + 1):
+            u = i / N
+            t = abs(u - cx) / hw
+            yy = min(1.08, apex + (1.0 - apex) * t * t)
+            pts.append((u * W, yy * H))
+        pts += [(W, H), (0, H)]
+        d.polygon(pts, fill=color)
+
+
+def rounded_canvas(big):
+    img = Image.new('RGBA', (big, big), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-
-    # maskable 图标安全区：内容限制在中央 80%
-    scale = 0.62 if maskable else 0.78
-    seal = int(size * scale)
-    x0 = (size - seal) // 2
-    y0 = (size - seal) // 2
-    r = int(seal * 0.18)
-
-    # 印章投影
-    sh = int(size * 0.012)
-    d.rounded_rectangle([x0 + sh, y0 + sh, x0 + seal + sh, y0 + seal + sh], radius=r,
-                        fill=(28, 44, 36, 40))
-    # 朱砂方章
-    d.rounded_rectangle([x0, y0, x0 + seal, y0 + seal], radius=r, fill=CINNABAR)
-    # 内描边（印章双框）
-    inset = int(seal * 0.045)
-    d.rounded_rectangle([x0 + inset, y0 + inset, x0 + seal - inset, y0 + seal - inset],
-                        radius=int(r * 0.75), outline=PAPER, width=max(2, int(size * 0.008)))
-
-    # 「巡」字
-    fs = int(seal * 0.62)
-    font = ImageFont.truetype(FONT, fs)
-    bbox = d.textbbox((0, 0), "山", font=font)
-    w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    d.text((x0 + (seal - w) / 2 - bbox[0], y0 + (seal - h) / 2 - bbox[1]), "山",
-           font=font, fill=PAPER)
-
-    # 底部小字「山」点缀（仅非 maskable 大图）
-    if not maskable and size >= 192:
-        f2 = ImageFont.truetype(FONT, int(size * 0.075))
-        b2 = d.textbbox((0, 0), "山峦册", font=f2)
-        d.text(((size - (b2[2] - b2[0])) / 2, y0 + seal + size * 0.015),
-               "山峦册", font=f2, fill=INK)
-
-    return img
+    d.rounded_rectangle([0, 0, big - 1, big - 1], radius=big * 0.22, fill=SILK)
+    return d, img
 
 
-for s in (192, 512):
-    make_icon(s).save(IMG / f"icon-{s}.png")
-make_icon(512, maskable=True).save(IMG / "icon-maskable-512.png")
-make_icon(180).save(IMG / "apple-touch-icon.png")
-print("[ok] 图标已生成：icon-192 / icon-512 / icon-maskable-512 / apple-touch-icon")
+def gen_any(size):
+    big = size * S
+    d, img = rounded_canvas(big)
+    draw_scene(d, big, inset=0.05)
+    d.rounded_rectangle([0, 0, big - 1, big - 1], radius=big * 0.22,
+                        outline=BORDER, width=big // 128)
+    return img.resize((size, size), Image.LANCZOS)
+
+
+def gen_fullbleed(size):
+    big = size * S
+    img = Image.new('RGBA', (big, big), SILK)
+    d = ImageDraw.Draw(img)
+    draw_scene(d, big, inset=0.11)
+    img = img.resize((size, size), Image.LANCZOS)
+    return img.convert('RGB')
+
+
+gen_any(512).save('img/icon-512.png')
+gen_any(192).save('img/icon-192.png')
+gen_fullbleed(512).save('img/icon-maskable-512.png')
+gen_fullbleed(180).save('img/apple-touch-icon.png')
+print('icons regenerated: 192/512/maskable/apple-touch')

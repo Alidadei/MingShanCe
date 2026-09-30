@@ -1062,6 +1062,11 @@ function viewProfile() {
     </div>
   </div>
 
+  <div class="section-title">版本与更新 <small>新版本自动提示 · 一键即时生效</small></div>
+  <div class="data-zone">
+    <button class="btn btn-ghost upd-btn" data-action="check-update">🔄 检查更新<small class="upd-ver">当前 <span data-appver>${esc(window.__appVersion || '…')}</span></small></button>
+  </div>
+
   <div class="section-title">数据管理 <small>资料与记录永久保留在本机</small></div>
   <div class="data-zone">
     <button class="btn btn-ghost" data-action="export">⬇️ 导出备份</button>
@@ -1098,7 +1103,7 @@ function viewProfile() {
           </div>`;
     }).join('')}
   </div>
-  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 v3.19 · 数据仅保存在本机</div>
+  <div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px">名山册 <span data-appver>${esc(window.__appVersion || '…')}</span> · 数据仅保存在本机</div>
   `;
 }
 
@@ -2125,6 +2130,9 @@ function handleAction(t) {
     case 'install-pwa':
       installPwa();
       break;
+    case 'check-update':
+      checkUpdate();
+      break;
     case 'close-chat':
       closeChat();
       break;
@@ -2416,7 +2424,67 @@ document.addEventListener('change', (e) => {
 window.addEventListener('hashchange', route);
 
 /* ================= PWA：Service Worker 与安装引导 ================= */
-if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+let swRefreshing = false; // 已触发过刷新，防 controllerchange 重复 reload
+/* 运行版本：向已接管的 SW 查询（旧版 SW 不应答则留空，仅影响展示）。
+   SW 经 e.source 直接回话，页面监听 serviceWorker 的 message 事件即可，
+   不用 MessageChannel（postMessage 的 transfer 数组签名已废弃易踩坑） */
+function askSwVersion(timeout = 1500) {
+  return new Promise((resolve) => {
+    const sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+    if (!sw) return resolve(null);
+    const timer = setTimeout(() => done(null), timeout);
+    const onMsg = (e) => {
+      if (e.data && e.data.type === 'VERSION') done(e.data.version || null);
+    };
+    function done(v) {
+      clearTimeout(timer);
+      navigator.serviceWorker.removeEventListener('message', onMsg);
+      resolve(v);
+    }
+    navigator.serviceWorker.addEventListener('message', onMsg);
+    try {
+      sw.postMessage({ type: 'GET_VERSION' });
+    } catch { done(null); }
+  });
+}
+function refreshVersionLabels() {
+  $$('[data-appver]').forEach((el) => { el.textContent = window.__appVersion || '…'; });
+}
+
+/* 检查更新：立即拉取 sw.js；发现新版则由 SW 自动接管（skipWaiting），
+   controllerchange 统一触发刷新；无新版给出「已是最新」反馈 */
+/* SW 可用环境：https 生产 或 本机调试（localhost / 127.0.0.1） */
+const SW_OK = ('serviceWorker' in navigator)
+  && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname));
+
+async function checkUpdate() {
+  if (!SW_OK) {
+    toast('当前环境不支持在线更新');
+    return;
+  }
+  toast('正在检查更新…');
+  let reg;
+  try { reg = await navigator.serviceWorker.ready; } catch { toast('更新服务不可用'); return; }
+  if (!navigator.serviceWorker.controller) { toast('首次离线缓存尚未完成，稍后再试'); return; }
+  let found = false;
+  const onFound = () => { found = true; };
+  reg.addEventListener('updatefound', onFound, { once: true });
+  try { await reg.update(); } catch { toast('检查失败，请稍后再试'); return; }
+  if (!found) { toast('已是最新版本 ✓', true); return; }
+  toast('发现新版本，应用中…');
+  setTimeout(() => { if (!swRefreshing) toast('更新已在后台应用，重新打开即生效'); }, 4500);
+}
+
+if (SW_OK) {
+  let hadController = !!navigator.serviceWorker.controller;
+  /* 新 SW 接管（首次注册不算）：提示后自动刷新一次，更新即时生效 */
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || swRefreshing) return;
+    swRefreshing = true;
+    toast('新版本已应用，正在刷新…', true);
+    setTimeout(() => location.reload(), 800);
+  });
+
   window.addEventListener('load', () => {
     // updateViaCache:'none'：sw.js 本身不走 HTTP 缓存，每次导航都拿最新版
     navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
@@ -2427,6 +2495,10 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
         });
       })
       .catch(() => { /* 静默失败 */ });
+    askSwVersion().then((v) => {
+      window.__appVersion = v ? v.replace(/^mingshance-/, '') : '';
+      refreshVersionLabels();
+    });
   });
 }
 
