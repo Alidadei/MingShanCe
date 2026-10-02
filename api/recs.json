@@ -1,13 +1,39 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-01T18:17:31+08:00",
-  "forDate": "2026-10-01",
+  "generatedAt": "2026-10-02T17:54:46+08:00",
+  "forDate": "2026-10-02",
   "week": 40,
   "weekendOf": "2026-10-03",
   "holiday": "国庆长假进行中",
   "weatherEnabled": true,
   "source": "github-actions",
   "seasonal": [
+    {
+      "id": "lingshan",
+      "name": "东灵山",
+      "emoji": "🌄",
+      "province": "北京 · 门头沟",
+      "elevation": 2303,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.2,
+      "reason": "周末阴，露营正当时",
+      "score": 25.91,
+      "weather": "阴，降水概率 22%，山顶夜温约 -11°C"
+    },
+    {
+      "id": "xiangshan",
+      "name": "香山",
+      "emoji": "🍁",
+      "province": "北京 · 海淀",
+      "elevation": 575,
+      "difficulty": 1,
+      "difficultyLabel": "休闲",
+      "scenery": 4.3,
+      "reason": "周末毛毛雨，红叶正当时",
+      "score": 23.79,
+      "weather": "毛毛雨，降水概率 10%，山顶夜温约 6°C"
+    },
     {
       "id": "maoershan",
       "name": "猫儿山",
@@ -18,60 +44,34 @@
       "difficultyLabel": "进阶",
       "scenery": 4.5,
       "reason": "国庆长假进行中，它是不错的错峰选择",
-      "score": 23.71,
-      "weather": "阵雨，降水概率 98%，山顶夜温约 -2°C"
+      "score": 23.47,
+      "weather": "阵雨，降水概率 76%，山顶夜温约 -2°C"
     },
     {
-      "id": "lingshan",
-      "name": "东灵山",
+      "id": "taishan",
+      "name": "泰山",
       "emoji": "🌄",
-      "province": "北京 · 门头沟",
-      "elevation": 2303,
-      "difficulty": 2,
-      "difficultyLabel": "轻松",
-      "scenery": 4.2,
-      "reason": "国庆长假进行中，它是不错的错峰选择",
-      "score": 23.2,
-      "weather": "毛毛雨，降水概率 45%，山顶夜温约 -10°C"
+      "province": "山东 · 泰安",
+      "elevation": 1545,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.9,
+      "reason": "周末阴，降水概率仅 0%，山顶夜温约 -5°C",
+      "score": 22.55,
+      "weather": "阴，降水概率 0%，山顶夜温约 -5°C"
     },
     {
-      "id": "yushan",
-      "name": "玉山",
-      "emoji": "⛰️",
-      "province": "台湾 · 南投/嘉义",
-      "elevation": 3952,
-      "difficulty": 4,
-      "difficultyLabel": "困难",
+      "id": "siguniangshan",
+      "name": "四姑娘山大峰",
+      "emoji": "🏔️",
+      "province": "四川 · 阿坝",
+      "elevation": 5025,
+      "difficulty": 5,
+      "difficultyLabel": "挑战",
       "scenery": 4.9,
       "reason": "国庆长假进行中，它是不错的错峰选择",
-      "score": 22.29,
-      "weather": "阵雨，降水概率 100%，山顶夜温约 -25°C"
-    },
-    {
-      "id": "putuoshan",
-      "name": "普陀山",
-      "emoji": "🙏",
-      "province": "浙江 · 舟山",
-      "elevation": 291,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 27%，山顶夜温约 21°C",
-      "score": 22.1,
-      "weather": "阴，降水概率 27%，山顶夜温约 21°C"
-    },
-    {
-      "id": "maijishan",
-      "name": "麦积山",
-      "emoji": "🗿",
-      "province": "甘肃 · 天水",
-      "elevation": 1742,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 16%，山顶夜温约 -1°C",
-      "score": 22.07,
-      "weather": "阴，降水概率 16%，山顶夜温约 -1°C"
+      "score": 22.13,
+      "weather": "阵雪，降水概率 100%，山顶夜温约 -42°C"
     }
   ],
   "trending": [
@@ -84,9 +84,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.7,
-      "reason": "周末阴，降水概率仅 22%",
+      "reason": "周末阴，降水概率仅 2%",
       "score": 18.48,
-      "weather": "阴，降水概率 22%，山顶夜温约 -37°C"
+      "weather": "阴，降水概率 2%，山顶夜温约 -37°C"
     },
     {
       "id": "maijishan",
@@ -97,9 +97,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 16%",
+      "reason": "周末阴，降水概率仅 4%",
       "score": 18.29,
-      "weather": "阴，降水概率 16%，山顶夜温约 -1°C"
+      "weather": "阴，降水概率 4%，山顶夜温约 -1°C"
     },
     {
       "id": "taishan",
@@ -110,9 +110,9 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "周末阴，降水概率仅 12%",
+      "reason": "周末阴，降水概率仅 0%",
       "score": 18.26,
-      "weather": "阴，降水概率 12%，山顶夜温约 -5°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 -5°C"
     },
     {
       "id": "yandangshan",
@@ -123,51 +123,25 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 6%",
+      "reason": "周末阴，降水概率仅 24%",
       "score": 17.22,
-      "weather": "阴，降水概率 6%，山顶夜温约 9°C"
+      "weather": "阴，降水概率 24%，山顶夜温约 8°C"
     },
     {
-      "id": "putuoshan",
-      "name": "普陀山",
-      "emoji": "🙏",
-      "province": "浙江 · 舟山",
-      "elevation": 291,
+      "id": "xiangshan",
+      "name": "香山",
+      "emoji": "🍁",
+      "province": "北京 · 海淀",
+      "elevation": 575,
       "difficulty": 1,
       "difficultyLabel": "休闲",
-      "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 27%",
-      "score": 16.84,
-      "weather": "阴，降水概率 27%，山顶夜温约 21°C"
+      "scenery": 4.3,
+      "reason": "周末毛毛雨，降水概率仅 10%",
+      "score": 17.02,
+      "weather": "毛毛雨，降水概率 10%，山顶夜温约 6°C"
     }
   ],
   "weekend": [
-    {
-      "id": "taishan",
-      "name": "泰山",
-      "emoji": "🌄",
-      "province": "山东 · 泰安",
-      "elevation": 1545,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.9,
-      "reason": "周末阴，降水概率 12%，山顶夜温约 -5°C，说走就走",
-      "score": 18.8,
-      "weather": "阴，降水概率 12%，山顶夜温约 -5°C"
-    },
-    {
-      "id": "changbaishan",
-      "name": "长白山",
-      "emoji": "🌋",
-      "province": "吉林 · 延边",
-      "elevation": 2691,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.9,
-      "reason": "周末多云，降水概率 29%，山顶夜温约 -21°C，说走就走",
-      "score": 18.8,
-      "weather": "多云，降水概率 29%，山顶夜温约 -21°C"
-    },
     {
       "id": "yuzhufeng",
       "name": "玉珠峰",
@@ -177,9 +151,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.7,
-      "reason": "周末阴，降水概率 22%，山顶夜温约 -37°C，说走就走",
-      "score": 18.4,
-      "weather": "阴，降水概率 22%，山顶夜温约 -37°C"
+      "reason": "周末两天刚好走完（建议 6 天行程）",
+      "score": 23.4,
+      "weather": "阴，降水概率 2%，山顶夜温约 -37°C"
     },
     {
       "id": "wutaishan",
@@ -190,9 +164,35 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.6,
-      "reason": "周末毛毛雨，降水概率 16%，山顶夜温约 -25°C，说走就走",
-      "score": 18.2,
-      "weather": "毛毛雨，降水概率 16%，山顶夜温约 -25°C"
+      "reason": "周末两天刚好走完（建议 3 天行程）",
+      "score": 23.2,
+      "weather": "阴，降水概率 4%，山顶夜温约 -25°C"
+    },
+    {
+      "id": "yandangshan",
+      "name": "雁荡山",
+      "emoji": "🗻",
+      "province": "浙江 · 温州",
+      "elevation": 1056,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.6,
+      "reason": "周末两天刚好走完（建议 2 天行程）",
+      "score": 23.2,
+      "weather": "阴，降水概率 24%，山顶夜温约 8°C"
+    },
+    {
+      "id": "putuoshan",
+      "name": "普陀山",
+      "emoji": "🙏",
+      "province": "浙江 · 舟山",
+      "elevation": 291,
+      "difficulty": 1,
+      "difficultyLabel": "休闲",
+      "scenery": 4.6,
+      "reason": "周末两天刚好走完（建议 2 天行程）",
+      "score": 23.2,
+      "weather": "毛毛雨，降水概率 23%，山顶夜温约 21°C"
     }
   ]
 }
