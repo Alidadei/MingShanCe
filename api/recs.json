@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-02T17:54:46+08:00",
-  "forDate": "2026-10-02",
+  "generatedAt": "2026-10-03T17:16:49+08:00",
+  "forDate": "2026-10-03",
   "week": 40,
   "weekendOf": "2026-10-03",
   "holiday": "国庆长假进行中",
@@ -18,8 +18,8 @@
       "difficultyLabel": "轻松",
       "scenery": 4.2,
       "reason": "周末阴，露营正当时",
-      "score": 25.91,
-      "weather": "阴，降水概率 22%，山顶夜温约 -11°C"
+      "score": 25.67,
+      "weather": "阴，降水概率 12%，山顶夜温约 -11°C"
     },
     {
       "id": "xiangshan",
@@ -30,9 +30,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.3,
-      "reason": "周末毛毛雨，红叶正当时",
-      "score": 23.79,
-      "weather": "毛毛雨，降水概率 10%，山顶夜温约 6°C"
+      "reason": "周末阴，红叶正当时",
+      "score": 24.03,
+      "weather": "阴，降水概率 4%，山顶夜温约 7°C"
     },
     {
       "id": "maoershan",
@@ -44,8 +44,8 @@
       "difficultyLabel": "进阶",
       "scenery": 4.5,
       "reason": "国庆长假进行中，它是不错的错峰选择",
-      "score": 23.47,
-      "weather": "阵雨，降水概率 76%，山顶夜温约 -2°C"
+      "score": 23.23,
+      "weather": "阵雨，降水概率 94%，山顶夜温约 -2°C"
     },
     {
       "id": "taishan",
@@ -56,22 +56,22 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "周末阴，降水概率仅 0%，山顶夜温约 -5°C",
-      "score": 22.55,
-      "weather": "阴，降水概率 0%，山顶夜温约 -5°C"
+      "reason": "周末阴，降水概率仅 2%，山顶夜温约 -4°C",
+      "score": 22.32,
+      "weather": "阴，降水概率 2%，山顶夜温约 -4°C"
     },
     {
-      "id": "siguniangshan",
-      "name": "四姑娘山大峰",
-      "emoji": "🏔️",
-      "province": "四川 · 阿坝",
-      "elevation": 5025,
-      "difficulty": 5,
-      "difficultyLabel": "挑战",
-      "scenery": 4.9,
-      "reason": "国庆长假进行中，它是不错的错峰选择",
+      "id": "laoshan",
+      "name": "崂山",
+      "emoji": "🌊",
+      "province": "山东 · 青岛",
+      "elevation": 1132,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.6,
+      "reason": "周末阴，降水概率仅 0%，山顶夜温约 5°C",
       "score": 22.13,
-      "weather": "阵雪，降水概率 100%，山顶夜温约 -42°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 5°C"
     }
   ],
   "trending": [
@@ -84,9 +84,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.7,
-      "reason": "周末阴，降水概率仅 2%",
+      "reason": "周末阴，降水概率仅 0%",
       "score": 18.48,
-      "weather": "阴，降水概率 2%，山顶夜温约 -37°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 -37°C"
     },
     {
       "id": "maijishan",
@@ -97,9 +97,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 4%",
+      "reason": "周末毛毛雨，降水概率仅 9%",
       "score": 18.29,
-      "weather": "阴，降水概率 4%，山顶夜温约 -1°C"
+      "weather": "毛毛雨，降水概率 9%，山顶夜温约 0°C"
     },
     {
       "id": "taishan",
@@ -110,9 +110,9 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "周末阴，降水概率仅 0%",
+      "reason": "周末阴，降水概率仅 2%",
       "score": 18.26,
-      "weather": "阴，降水概率 0%，山顶夜温约 -5°C"
+      "weather": "阴，降水概率 2%，山顶夜温约 -4°C"
     },
     {
       "id": "yandangshan",
@@ -123,9 +123,9 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.6,
-      "reason": "周末阴，降水概率仅 24%",
+      "reason": "周末阴，降水概率仅 12%",
       "score": 17.22,
-      "weather": "阴，降水概率 24%，山顶夜温约 8°C"
+      "weather": "阴，降水概率 12%，山顶夜温约 6°C"
     },
     {
       "id": "xiangshan",
@@ -136,9 +136,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.3,
-      "reason": "周末毛毛雨，降水概率仅 10%",
+      "reason": "周末阴，降水概率仅 4%",
       "score": 17.02,
-      "weather": "毛毛雨，降水概率 10%，山顶夜温约 6°C"
+      "weather": "阴，降水概率 4%，山顶夜温约 7°C"
     }
   ],
   "weekend": [
@@ -153,7 +153,7 @@
       "scenery": 4.7,
       "reason": "周末两天刚好走完（建议 6 天行程）",
       "score": 23.4,
-      "weather": "阴，降水概率 2%，山顶夜温约 -37°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 -37°C"
     },
     {
       "id": "wutaishan",
@@ -166,7 +166,7 @@
       "scenery": 4.6,
       "reason": "周末两天刚好走完（建议 3 天行程）",
       "score": 23.2,
-      "weather": "阴，降水概率 4%，山顶夜温约 -25°C"
+      "weather": "多云，降水概率 0%，山顶夜温约 -25°C"
     },
     {
       "id": "yandangshan",
@@ -179,20 +179,20 @@
       "scenery": 4.6,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.2,
-      "weather": "阴，降水概率 24%，山顶夜温约 8°C"
+      "weather": "阴，降水概率 12%，山顶夜温约 6°C"
     },
     {
-      "id": "putuoshan",
-      "name": "普陀山",
-      "emoji": "🙏",
-      "province": "浙江 · 舟山",
-      "elevation": 291,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.6,
+      "id": "xiaowutaishan",
+      "name": "小五台山",
+      "emoji": "⛰️",
+      "province": "河北 · 张家口",
+      "elevation": 2882,
+      "difficulty": 5,
+      "difficultyLabel": "挑战",
+      "scenery": 4.5,
       "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.2,
-      "weather": "毛毛雨，降水概率 23%，山顶夜温约 21°C"
+      "score": 23.0,
+      "weather": "毛毛雨，降水概率 4%，山顶夜温约 -24°C"
     }
   ]
 }
