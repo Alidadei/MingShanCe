@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-09T18:43:40+08:00",
-  "forDate": "2026-10-09",
+  "generatedAt": "2026-10-10T17:59:14+08:00",
+  "forDate": "2026-10-10",
   "week": 41,
   "weekendOf": "2026-10-10",
   "holiday": null,
@@ -18,20 +18,7 @@
       "difficultyLabel": "困难",
       "scenery": 5.0,
       "reason": "周末晴，日出正当时",
-      "score": 27.8,
-      "weather": "晴，降水概率 0%，山顶夜温约 -5°C"
-    },
-    {
-      "id": "maoershan",
-      "name": "猫儿山",
-      "emoji": "🐱",
-      "province": "广西 · 桂林",
-      "elevation": 2141,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.5,
-      "reason": "周末晴，云海正当时",
-      "score": 26.81,
+      "score": 27.38,
       "weather": "晴，降水概率 0%，山顶夜温约 -5°C"
     },
     {
@@ -44,8 +31,21 @@
       "difficultyLabel": "进阶",
       "scenery": 4.7,
       "reason": "周末晴，露营正当时",
-      "score": 26.76,
+      "score": 27.14,
       "weather": "晴，降水概率 0%，山顶夜温约 -3°C"
+    },
+    {
+      "id": "maoershan",
+      "name": "猫儿山",
+      "emoji": "🐱",
+      "province": "广西 · 桂林",
+      "elevation": 2141,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.5,
+      "reason": "周末晴，云海正当时",
+      "score": 26.02,
+      "weather": "晴，降水概率 0%，山顶夜温约 -5°C"
     },
     {
       "id": "lingshan",
@@ -57,8 +57,8 @@
       "difficultyLabel": "轻松",
       "scenery": 4.2,
       "reason": "周末阴，露营正当时",
-      "score": 26.1,
-      "weather": "阴，降水概率 2%，山顶夜温约 -7°C"
+      "score": 25.72,
+      "weather": "阴，降水概率 6%，山顶夜温约 -7°C"
     },
     {
       "id": "sanqingshan",
@@ -70,7 +70,7 @@
       "difficultyLabel": "进阶",
       "scenery": 4.8,
       "reason": "周末晴，云海正当时",
-      "score": 24.7,
+      "score": 25.09,
       "weather": "晴，降水概率 0%，山顶夜温约 -2°C"
     }
   ],
@@ -112,7 +112,7 @@
       "scenery": 4.7,
       "reason": "周末晴，降水概率仅 0%",
       "score": 18.0,
-      "weather": "晴，降水概率 0%，山顶夜温约 2°C"
+      "weather": "晴，降水概率 0%，山顶夜温约 3°C"
     },
     {
       "id": "huashan",
@@ -123,9 +123,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末阴，降水概率仅 4%",
+      "reason": "周末阴，降水概率仅 0%",
       "score": 17.96,
-      "weather": "阴，降水概率 4%，山顶夜温约 -4°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 -4°C"
     },
     {
       "id": "wudangshan",
@@ -136,9 +136,9 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.7,
-      "reason": "周末大致晴，降水概率仅 13%",
+      "reason": "周末阴，降水概率仅 7%",
       "score": 17.96,
-      "weather": "大致晴，降水概率 13%，山顶夜温约 -2°C"
+      "weather": "阴，降水概率 7%，山顶夜温约 -1°C"
     }
   ],
   "weekend": [
@@ -153,7 +153,7 @@
       "scenery": 4.9,
       "reason": "周末两天刚好走完（建议 5 天行程）",
       "score": 23.8,
-      "weather": "大致晴，降水概率 0%，山顶夜温约 -30°C"
+      "weather": "多云，降水概率 0%，山顶夜温约 -30°C"
     },
     {
       "id": "sanqingshan",
@@ -192,7 +192,7 @@
       "scenery": 4.7,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.4,
-      "weather": "晴，降水概率 0%，山顶夜温约 2°C"
+      "weather": "晴，降水概率 0%，山顶夜温约 3°C"
     }
   ]
 }
