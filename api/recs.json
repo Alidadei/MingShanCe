@@ -1,13 +1,26 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-06T19:10:02+08:00",
-  "forDate": "2026-11-06",
+  "generatedAt": "2026-11-07T18:27:48+08:00",
+  "forDate": "2026-11-07",
   "week": 45,
   "weekendOf": "2026-11-07",
   "holiday": null,
   "weatherEnabled": true,
   "source": "github-actions",
   "seasonal": [
+    {
+      "id": "putuoshan",
+      "name": "普陀山",
+      "emoji": "🙏",
+      "province": "浙江 · 舟山",
+      "elevation": 291,
+      "difficulty": 1,
+      "difficultyLabel": "休闲",
+      "scenery": 4.6,
+      "reason": "周末阴，降水概率仅 27%，山顶夜温约 16°C",
+      "score": 22.12,
+      "weather": "阴，降水概率 27%，山顶夜温约 16°C"
+    },
     {
       "id": "jizushan",
       "name": "鸡足山",
@@ -17,9 +30,9 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.5,
-      "reason": "周末毛毛雨，降水概率仅 10%，山顶夜温约 -15°C",
-      "score": 21.49,
-      "weather": "毛毛雨，降水概率 10%，山顶夜温约 -15°C"
+      "reason": "周末雾，降水概率仅 14%，山顶夜温约 -16°C",
+      "score": 21.72,
+      "weather": "雾，降水概率 14%，山顶夜温约 -16°C"
     },
     {
       "id": "huangshan",
@@ -31,34 +44,8 @@
       "difficultyLabel": "困难",
       "scenery": 5.0,
       "reason": "11 月正当时：云海最佳观赏期，风景评分 5.0",
-      "score": 21.39,
-      "weather": "阵雨，降水概率 100%，山顶夜温约 -9°C"
-    },
-    {
-      "id": "putuoshan",
-      "name": "普陀山",
-      "emoji": "🙏",
-      "province": "浙江 · 舟山",
-      "elevation": 291,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.6,
-      "reason": "周末毛毛雨，降水概率仅 12%，山顶夜温约 17°C",
-      "score": 21.36,
-      "weather": "毛毛雨，降水概率 12%，山顶夜温约 17°C"
-    },
-    {
-      "id": "aershan",
-      "name": "阿尔山",
-      "emoji": "🌲",
-      "province": "内蒙古 · 兴安盟",
-      "elevation": 1711,
-      "difficulty": 1,
-      "difficultyLabel": "休闲",
-      "scenery": 4.5,
-      "reason": "周末多云，降水概率仅 0%，山顶夜温约 -32°C",
-      "score": 20.96,
-      "weather": "多云，降水概率 0%，山顶夜温约 -32°C"
+      "score": 21.15,
+      "weather": "阵雨，降水概率 100%，山顶夜温约 -10°C"
     },
     {
       "id": "maluanshan",
@@ -69,9 +56,22 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 3.8,
-      "reason": "周末毛毛雨，降水概率仅 11%，山顶夜温约 17°C",
-      "score": 20.25,
-      "weather": "毛毛雨，降水概率 11%，山顶夜温约 17°C"
+      "reason": "周末多云，降水概率仅 14%，山顶夜温约 17°C",
+      "score": 20.48,
+      "weather": "多云，降水概率 14%，山顶夜温约 17°C"
+    },
+    {
+      "id": "aershan",
+      "name": "阿尔山",
+      "emoji": "🌲",
+      "province": "内蒙古 · 兴安盟",
+      "elevation": 1711,
+      "difficulty": 1,
+      "difficultyLabel": "休闲",
+      "scenery": 4.5,
+      "reason": "周末雾，降水概率仅 0%，山顶夜温约 -32°C",
+      "score": 20.2,
+      "weather": "雾，降水概率 0%，山顶夜温约 -32°C"
     }
   ],
   "trending": [
@@ -84,9 +84,9 @@
       "difficulty": 3,
       "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "周末多云，降水概率仅 0%",
+      "reason": "周末多云，降水概率仅 1%",
       "score": 18.95,
-      "weather": "多云，降水概率 0%，山顶夜温约 -39°C"
+      "weather": "多云，降水概率 1%，山顶夜温约 -39°C"
     },
     {
       "id": "yuzhufeng",
@@ -97,9 +97,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.7,
-      "reason": "周末小雪，降水概率仅 4%",
+      "reason": "周末阴，降水概率仅 6%",
       "score": 17.91,
-      "weather": "小雪，降水概率 4%，山顶夜温约 -44°C"
+      "weather": "阴，降水概率 6%，山顶夜温约 -44°C"
     },
     {
       "id": "bogda",
@@ -110,9 +110,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末晴，降水概率仅 5%",
+      "reason": "周末大致晴，降水概率仅 1%",
       "score": 17.71,
-      "weather": "晴，降水概率 5%，山顶夜温约 -38°C"
+      "weather": "大致晴，降水概率 1%，山顶夜温约 -39°C"
     },
     {
       "id": "laoshan",
@@ -123,9 +123,9 @@
       "difficulty": 2,
       "difficultyLabel": "轻松",
       "scenery": 4.6,
-      "reason": "周末毛毛雨，降水概率仅 20%",
+      "reason": "周末毛毛雨，降水概率仅 2%",
       "score": 17.22,
-      "weather": "毛毛雨，降水概率 20%，山顶夜温约 0°C"
+      "weather": "毛毛雨，降水概率 2%，山顶夜温约 0°C"
     },
     {
       "id": "habaxueshan",
@@ -138,7 +138,7 @@
       "scenery": 4.7,
       "reason": "周末大致晴，降水概率仅 0%",
       "score": 16.86,
-      "weather": "大致晴，降水概率 0%，山顶夜温约 -40°C"
+      "weather": "大致晴，降水概率 0%，山顶夜温约 -41°C"
     }
   ],
   "weekend": [
@@ -153,7 +153,7 @@
       "scenery": 4.9,
       "reason": "周末两天刚好走完（建议 5 天行程）",
       "score": 23.8,
-      "weather": "晴，降水概率 5%，山顶夜温约 -38°C"
+      "weather": "大致晴，降水概率 1%，山顶夜温约 -39°C"
     },
     {
       "id": "habaxueshan",
@@ -166,7 +166,7 @@
       "scenery": 4.7,
       "reason": "周末两天刚好走完（建议 3 天行程）",
       "score": 23.4,
-      "weather": "大致晴，降水概率 0%，山顶夜温约 -40°C"
+      "weather": "大致晴，降水概率 0%，山顶夜温约 -41°C"
     },
     {
       "id": "yuzhufeng",
@@ -179,7 +179,7 @@
       "scenery": 4.7,
       "reason": "周末两天刚好走完（建议 6 天行程）",
       "score": 23.4,
-      "weather": "小雪，降水概率 4%，山顶夜温约 -44°C"
+      "weather": "阴，降水概率 6%，山顶夜温约 -44°C"
     },
     {
       "id": "putuoshan",
@@ -192,7 +192,7 @@
       "scenery": 4.6,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.2,
-      "weather": "毛毛雨，降水概率 12%，山顶夜温约 17°C"
+      "weather": "阴，降水概率 27%，山顶夜温约 16°C"
     }
   ]
 }
