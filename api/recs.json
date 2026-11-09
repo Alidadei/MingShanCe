@@ -1,26 +1,13 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-08T18:34:58+08:00",
-  "forDate": "2026-11-08",
-  "week": 45,
+  "generatedAt": "2026-11-09T19:49:36+08:00",
+  "forDate": "2026-11-09",
+  "week": 46,
   "weekendOf": "2026-11-14",
   "holiday": null,
   "weatherEnabled": true,
   "source": "github-actions",
   "seasonal": [
-    {
-      "id": "yushan",
-      "name": "玉山",
-      "emoji": "⛰️",
-      "province": "台湾 · 南投/嘉义",
-      "elevation": 3952,
-      "difficulty": 4,
-      "difficultyLabel": "困难",
-      "scenery": 4.9,
-      "reason": "周末毛毛雨，云海正当时",
-      "score": 24.36,
-      "weather": "毛毛雨，降水概率 22%，山顶夜温约 -28°C"
-    },
     {
       "id": "xiangshan",
       "name": "香山",
@@ -30,9 +17,9 @@
       "difficulty": 1,
       "difficultyLabel": "休闲",
       "scenery": 4.3,
-      "reason": "周末阴，红叶正当时",
-      "score": 23.76,
-      "weather": "阴，降水概率 2%，山顶夜温约 -3°C"
+      "reason": "周末大致晴，红叶正当时",
+      "score": 23.53,
+      "weather": "大致晴，降水概率 4%，山顶夜温约 -3°C"
     },
     {
       "id": "namjagbarwa",
@@ -43,9 +30,22 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 5.0,
-      "reason": "周末雾，降水概率仅 16%，山顶夜温约 -68°C",
-      "score": 22.93,
-      "weather": "雾，降水概率 16%，山顶夜温约 -68°C"
+      "reason": "周末雾，降水概率仅 4%，山顶夜温约 -69°C",
+      "score": 22.69,
+      "weather": "雾，降水概率 4%，山顶夜温约 -69°C"
+    },
+    {
+      "id": "wudangshan",
+      "name": "武当山",
+      "emoji": "☯️",
+      "province": "湖北 · 十堰",
+      "elevation": 1612,
+      "difficulty": 2,
+      "difficultyLabel": "轻松",
+      "scenery": 4.7,
+      "reason": "周末雾，降水概率仅 16%，山顶夜温约 -7°C",
+      "score": 21.88,
+      "weather": "雾，降水概率 16%，山顶夜温约 -7°C"
     },
     {
       "id": "cangshan",
@@ -57,24 +57,37 @@
       "difficultyLabel": "进阶",
       "scenery": 4.7,
       "reason": "周末晴，降水概率仅 0%，山顶夜温约 -32°C",
-      "score": 22.06,
+      "score": 21.82,
       "weather": "晴，降水概率 0%，山顶夜温约 -32°C"
     },
     {
-      "id": "jizushan",
-      "name": "鸡足山",
-      "emoji": "🙏",
-      "province": "云南 · 大理",
-      "elevation": 3248,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.5,
-      "reason": "周末晴，降水概率仅 0%，山顶夜温约 -19°C",
-      "score": 21.82,
-      "weather": "晴，降水概率 0%，山顶夜温约 -19°C"
+      "id": "huangshan",
+      "name": "黄山",
+      "emoji": "🌊",
+      "province": "安徽 · 黄山市",
+      "elevation": 1864,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 5.0,
+      "reason": "11 月正当时：云海最佳观赏期，风景评分 5.0",
+      "score": 21.58,
+      "weather": "阵雨，降水概率 77%，山顶夜温约 -6°C"
     }
   ],
   "trending": [
+    {
+      "id": "huashan",
+      "name": "华山",
+      "emoji": "🧗",
+      "province": "陕西 · 渭南",
+      "elevation": 2154,
+      "difficulty": 5,
+      "difficultyLabel": "挑战",
+      "scenery": 4.9,
+      "reason": "周末阴，降水概率仅 11%",
+      "score": 18.53,
+      "weather": "阴，降水概率 11%，山顶夜温约 -8°C"
+    },
     {
       "id": "namjagbarwa",
       "name": "南迦巴瓦峰",
@@ -84,35 +97,35 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 5.0,
-      "reason": "周末雾，降水概率仅 16%",
-      "score": 19.12,
-      "weather": "雾，降水概率 16%，山顶夜温约 -68°C"
+      "reason": "周末雾，降水概率仅 4%",
+      "score": 18.4,
+      "weather": "雾，降水概率 4%，山顶夜温约 -69°C"
     },
     {
-      "id": "cangshan",
-      "name": "苍山",
-      "emoji": "🏔️",
-      "province": "云南 · 大理",
-      "elevation": 4122,
+      "id": "changbaishan",
+      "name": "长白山",
+      "emoji": "🌋",
+      "province": "吉林 · 延边",
+      "elevation": 2691,
       "difficulty": 3,
       "difficultyLabel": "进阶",
-      "scenery": 4.7,
-      "reason": "周末晴，降水概率仅 0%",
-      "score": 18.62,
-      "weather": "晴，降水概率 0%，山顶夜温约 -32°C"
+      "scenery": 4.9,
+      "reason": "周末阴，降水概率仅 16%",
+      "score": 18.09,
+      "weather": "阴，降水概率 16%，山顶夜温约 -27°C"
     },
     {
-      "id": "gonggashan",
-      "name": "贡嘎山",
-      "emoji": "🏔️",
-      "province": "四川 · 康定",
-      "elevation": 7556,
-      "difficulty": 5,
-      "difficultyLabel": "挑战",
-      "scenery": 5.0,
-      "reason": "周末大致晴，降水概率仅 20%",
-      "score": 18.56,
-      "weather": "大致晴，降水概率 20%，山顶夜温约 -72°C"
+      "id": "yuntaishan",
+      "name": "云台山",
+      "emoji": "💦",
+      "province": "河南 · 焦作",
+      "elevation": 1308,
+      "difficulty": 1,
+      "difficultyLabel": "休闲",
+      "scenery": 4.6,
+      "reason": "周末阴，降水概率仅 25%",
+      "score": 17.94,
+      "weather": "阴，降水概率 25%，山顶夜温约 0°C"
     },
     {
       "id": "siguniangshan",
@@ -123,37 +136,37 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末多云，降水概率仅 13%",
-      "score": 18.54,
-      "weather": "多云，降水概率 13%，山顶夜温约 -51°C"
-    },
-    {
-      "id": "kongtongshan",
-      "name": "崆峒山",
-      "emoji": "🏯",
-      "province": "甘肃 · 平凉",
-      "elevation": 2123,
-      "difficulty": 2,
-      "difficultyLabel": "轻松",
-      "scenery": 4.4,
-      "reason": "周末阴，降水概率仅 14%",
-      "score": 17.97,
-      "weather": "阴，降水概率 14%，山顶夜温约 -13°C"
+      "reason": "周末晴，降水概率仅 8%",
+      "score": 17.82,
+      "weather": "晴，降水概率 8%，山顶夜温约 -51°C"
     }
   ],
   "weekend": [
     {
-      "id": "gonggashan",
-      "name": "贡嘎山",
+      "id": "namjagbarwa",
+      "name": "南迦巴瓦峰",
       "emoji": "🏔️",
-      "province": "四川 · 康定",
-      "elevation": 7556,
+      "province": "西藏 · 林芝",
+      "elevation": 7782,
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 5.0,
-      "reason": "周末两天刚好走完（建议 8 天行程）",
-      "score": 24.0,
-      "weather": "大致晴，降水概率 20%，山顶夜温约 -72°C"
+      "reason": "周末雾，降水概率 4%，山顶夜温约 -69°C，说走就走",
+      "score": 19.0,
+      "weather": "雾，降水概率 4%，山顶夜温约 -69°C"
+    },
+    {
+      "id": "huashan",
+      "name": "华山",
+      "emoji": "🧗",
+      "province": "陕西 · 渭南",
+      "elevation": 2154,
+      "difficulty": 5,
+      "difficultyLabel": "挑战",
+      "scenery": 4.9,
+      "reason": "周末阴，降水概率 11%，山顶夜温约 -8°C，说走就走",
+      "score": 18.8,
+      "weather": "阴，降水概率 11%，山顶夜温约 -8°C"
     },
     {
       "id": "siguniangshan",
@@ -164,35 +177,22 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末两天刚好走完（建议 3 天行程）",
-      "score": 23.8,
-      "weather": "多云，降水概率 13%，山顶夜温约 -51°C"
+      "reason": "周末晴，降水概率 8%，山顶夜温约 -51°C，说走就走",
+      "score": 18.8,
+      "weather": "晴，降水概率 8%，山顶夜温约 -51°C"
     },
     {
-      "id": "yushan",
-      "name": "玉山",
-      "emoji": "⛰️",
-      "province": "台湾 · 南投/嘉义",
-      "elevation": 3952,
-      "difficulty": 4,
-      "difficultyLabel": "困难",
+      "id": "changbaishan",
+      "name": "长白山",
+      "emoji": "🌋",
+      "province": "吉林 · 延边",
+      "elevation": 2691,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
       "scenery": 4.9,
-      "reason": "周末两天刚好走完（建议 2 天行程）",
-      "score": 23.8,
-      "weather": "毛毛雨，降水概率 22%，山顶夜温约 -28°C"
-    },
-    {
-      "id": "bogda",
-      "name": "博格达峰",
-      "emoji": "🏔️",
-      "province": "新疆 · 昌吉",
-      "elevation": 5445,
-      "difficulty": 5,
-      "difficultyLabel": "挑战",
-      "scenery": 4.9,
-      "reason": "周末两天刚好走完（建议 5 天行程）",
-      "score": 23.8,
-      "weather": "大致晴，降水概率 6%，山顶夜温约 -41°C"
+      "reason": "周末阴，降水概率 16%，山顶夜温约 -27°C，说走就走",
+      "score": 18.8,
+      "weather": "阴，降水概率 16%，山顶夜温约 -27°C"
     }
   ]
 }
