@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-19T19:53:20+08:00",
-  "forDate": "2026-11-19",
+  "generatedAt": "2026-11-20T19:55:04+08:00",
+  "forDate": "2026-11-20",
   "week": 47,
   "weekendOf": "2026-11-21",
   "holiday": null,
@@ -18,7 +18,7 @@
       "difficultyLabel": "困难",
       "scenery": 5.0,
       "reason": "周末晴，云海正当时",
-      "score": 27.33,
+      "score": 27.88,
       "weather": "晴，降水概率 0%，山顶夜温约 -16°C"
     },
     {
@@ -31,8 +31,8 @@
       "difficultyLabel": "进阶",
       "scenery": 4.8,
       "reason": "周末晴，云海正当时",
-      "score": 24.99,
-      "weather": "晴，降水概率 0%，山顶夜温约 -14°C"
+      "score": 24.67,
+      "weather": "晴，降水概率 0%，山顶夜温约 -13°C"
     },
     {
       "id": "maoershan",
@@ -44,21 +44,8 @@
       "difficultyLabel": "进阶",
       "scenery": 4.5,
       "reason": "周末阴，云海正当时",
-      "score": 24.37,
-      "weather": "阴，降水概率 0%，山顶夜温约 -13°C"
-    },
-    {
-      "id": "wutongshan",
-      "name": "梧桐山",
-      "emoji": "⛰️",
-      "province": "广东 · 深圳",
-      "elevation": 944,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
-      "scenery": 4.0,
-      "reason": "周末阴，云海正当时",
-      "score": 23.48,
-      "weather": "阴，降水概率 0%，山顶夜温约 5°C"
+      "score": 23.96,
+      "weather": "阴，降水概率 0%，山顶夜温约 -14°C"
     },
     {
       "id": "xiangshan",
@@ -70,8 +57,21 @@
       "difficultyLabel": "休闲",
       "scenery": 4.3,
       "reason": "周末晴，红叶正当时",
-      "score": 23.28,
+      "score": 23.75,
       "weather": "晴，降水概率 0%，山顶夜温约 -7°C"
+    },
+    {
+      "id": "wutongshan",
+      "name": "梧桐山",
+      "emoji": "⛰️",
+      "province": "广东 · 深圳",
+      "elevation": 944,
+      "difficulty": 3,
+      "difficultyLabel": "进阶",
+      "scenery": 4.0,
+      "reason": "周末阴，云海正当时",
+      "score": 22.8,
+      "weather": "阴，降水概率 0%，山顶夜温约 5°C"
     }
   ],
   "trending": [
@@ -84,9 +84,9 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末阴，降水概率仅 0%",
+      "reason": "周末多云，降水概率仅 0%",
       "score": 19.28,
-      "weather": "阴，降水概率 0%，山顶夜温约 -42°C"
+      "weather": "多云，降水概率 0%，山顶夜温约 -42°C"
     },
     {
       "id": "shennongjia",
@@ -143,19 +143,6 @@
   ],
   "weekend": [
     {
-      "id": "huangshan",
-      "name": "黄山",
-      "emoji": "🌊",
-      "province": "安徽 · 黄山市",
-      "elevation": 1864,
-      "difficulty": 4,
-      "difficultyLabel": "困难",
-      "scenery": 5.0,
-      "reason": "周末晴，降水概率 0%，山顶夜温约 -16°C，说走就走",
-      "score": 19.0,
-      "weather": "晴，降水概率 0%，山顶夜温约 -16°C"
-    },
-    {
       "id": "gonggashan",
       "name": "贡嘎山",
       "emoji": "🏔️",
@@ -164,35 +151,48 @@
       "difficulty": 5,
       "difficultyLabel": "挑战",
       "scenery": 5.0,
-      "reason": "周末晴，降水概率 0%，山顶夜温约 -75°C，说走就走",
-      "score": 19.0,
-      "weather": "晴，降水概率 0%，山顶夜温约 -75°C"
+      "reason": "周末两天刚好走完（建议 8 天行程）",
+      "score": 24.0,
+      "weather": "晴，降水概率 0%，山顶夜温约 -74°C"
     },
     {
-      "id": "namjagbarwa",
-      "name": "南迦巴瓦峰",
+      "id": "siguniangshan",
+      "name": "四姑娘山大峰",
       "emoji": "🏔️",
-      "province": "西藏 · 林芝",
-      "elevation": 7782,
+      "province": "四川 · 阿坝",
+      "elevation": 5025,
       "difficulty": 5,
       "difficultyLabel": "挑战",
-      "scenery": 5.0,
-      "reason": "周末雾，降水概率 0%，山顶夜温约 -64°C，说走就走",
-      "score": 19.0,
-      "weather": "雾，降水概率 0%，山顶夜温约 -64°C"
+      "scenery": 4.9,
+      "reason": "周末两天刚好走完（建议 3 天行程）",
+      "score": 23.8,
+      "weather": "晴，降水概率 0%，山顶夜温约 -52°C"
     },
     {
-      "id": "taishan",
-      "name": "泰山",
-      "emoji": "🌄",
-      "province": "山东 · 泰安",
-      "elevation": 1545,
-      "difficulty": 3,
-      "difficultyLabel": "进阶",
+      "id": "bogda",
+      "name": "博格达峰",
+      "emoji": "🏔️",
+      "province": "新疆 · 昌吉",
+      "elevation": 5445,
+      "difficulty": 5,
+      "difficultyLabel": "挑战",
       "scenery": 4.9,
-      "reason": "周末晴，降水概率 0%，山顶夜温约 -20°C，说走就走",
-      "score": 18.8,
-      "weather": "晴，降水概率 0%，山顶夜温约 -20°C"
+      "reason": "周末两天刚好走完（建议 5 天行程）",
+      "score": 23.8,
+      "weather": "多云，降水概率 0%，山顶夜温约 -42°C"
+    },
+    {
+      "id": "emeishan",
+      "name": "峨眉山",
+      "emoji": "🐘",
+      "province": "四川 · 乐山",
+      "elevation": 3079,
+      "difficulty": 4,
+      "difficultyLabel": "困难",
+      "scenery": 4.8,
+      "reason": "周末两天刚好走完（建议 2 天行程）",
+      "score": 23.6,
+      "weather": "雾，降水概率 0%，山顶夜温约 -28°C"
     }
   ]
 }
