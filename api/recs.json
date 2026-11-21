@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-20T19:55:04+08:00",
-  "forDate": "2026-11-20",
+  "generatedAt": "2026-11-21T19:25:33+08:00",
+  "forDate": "2026-11-21",
   "week": 47,
   "weekendOf": "2026-11-21",
   "holiday": null,
@@ -18,7 +18,7 @@
       "difficultyLabel": "困难",
       "scenery": 5.0,
       "reason": "周末晴，云海正当时",
-      "score": 27.88,
+      "score": 27.65,
       "weather": "晴，降水概率 0%，山顶夜温约 -16°C"
     },
     {
@@ -31,7 +31,7 @@
       "difficultyLabel": "进阶",
       "scenery": 4.8,
       "reason": "周末晴，云海正当时",
-      "score": 24.67,
+      "score": 24.43,
       "weather": "晴，降水概率 0%，山顶夜温约 -13°C"
     },
     {
@@ -44,7 +44,7 @@
       "difficultyLabel": "进阶",
       "scenery": 4.5,
       "reason": "周末阴，云海正当时",
-      "score": 23.96,
+      "score": 24.2,
       "weather": "阴，降水概率 0%，山顶夜温约 -14°C"
     },
     {
@@ -57,21 +57,21 @@
       "difficultyLabel": "休闲",
       "scenery": 4.3,
       "reason": "周末晴，红叶正当时",
-      "score": 23.75,
+      "score": 23.52,
       "weather": "晴，降水概率 0%，山顶夜温约 -7°C"
     },
     {
-      "id": "wutongshan",
-      "name": "梧桐山",
-      "emoji": "⛰️",
-      "province": "广东 · 深圳",
-      "elevation": 944,
+      "id": "fanjingshan",
+      "name": "梵净山",
+      "emoji": "🛕",
+      "province": "贵州 · 铜仁",
+      "elevation": 2572,
       "difficulty": 3,
       "difficultyLabel": "进阶",
-      "scenery": 4.0,
-      "reason": "周末阴，云海正当时",
-      "score": 22.8,
-      "weather": "阴，降水概率 0%，山顶夜温约 5°C"
+      "scenery": 4.8,
+      "reason": "周末阴，降水概率仅 0%，山顶夜温约 -18°C",
+      "score": 22.46,
+      "weather": "阴，降水概率 0%，山顶夜温约 -18°C"
     }
   ],
   "trending": [
@@ -86,7 +86,7 @@
       "scenery": 4.9,
       "reason": "周末多云，降水概率仅 0%",
       "score": 19.28,
-      "weather": "多云，降水概率 0%，山顶夜温约 -42°C"
+      "weather": "多云，降水概率 0%，山顶夜温约 -41°C"
     },
     {
       "id": "shennongjia",
@@ -112,7 +112,7 @@
       "scenery": 4.7,
       "reason": "周末阴，降水概率仅 0%",
       "score": 18.43,
-      "weather": "阴，降水概率 0%，山顶夜温约 -43°C"
+      "weather": "阴，降水概率 0%，山顶夜温约 -44°C"
     },
     {
       "id": "laojunshan",
@@ -153,7 +153,7 @@
       "scenery": 5.0,
       "reason": "周末两天刚好走完（建议 8 天行程）",
       "score": 24.0,
-      "weather": "晴，降水概率 0%，山顶夜温约 -74°C"
+      "weather": "晴，降水概率 0%，山顶夜温约 -75°C"
     },
     {
       "id": "siguniangshan",
@@ -166,7 +166,7 @@
       "scenery": 4.9,
       "reason": "周末两天刚好走完（建议 3 天行程）",
       "score": 23.8,
-      "weather": "晴，降水概率 0%，山顶夜温约 -52°C"
+      "weather": "晴，降水概率 0%，山顶夜温约 -53°C"
     },
     {
       "id": "bogda",
@@ -179,7 +179,7 @@
       "scenery": 4.9,
       "reason": "周末两天刚好走完（建议 5 天行程）",
       "score": 23.8,
-      "weather": "多云，降水概率 0%，山顶夜温约 -42°C"
+      "weather": "多云，降水概率 0%，山顶夜温约 -41°C"
     },
     {
       "id": "emeishan",
@@ -192,7 +192,7 @@
       "scenery": 4.8,
       "reason": "周末两天刚好走完（建议 2 天行程）",
       "score": 23.6,
-      "weather": "雾，降水概率 0%，山顶夜温约 -28°C"
+      "weather": "雾，降水概率 0%，山顶夜温约 -29°C"
     }
   ]
 }
